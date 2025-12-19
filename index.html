@@ -840,84 +840,214 @@
 
         /* Please visit the URL below for more information: */
         /*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
-    /* DSA Tracker Custom CSS */
-    .dsa-tracker-dashboard {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        background: #fff;
-        border-bottom: 2px solid #e1e4e8;
-        padding: 10px 20px;
-        z-index: 1000;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        display: flex;
-        justify-content: center;
-    }
-    .dsa-dashboard-content {
-        max-width: 900px;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 20px;
-    }
-    .dsa-progress-container {
-        flex: 1;
-        display: flex;
-        align-items: center;
-        gap: 15px;
-    }
-    #dsa-progress-text {
-        font-weight: bold;
-        min-width: 120px;
-        color: #24292e;
-    }
-    .dsa-progress-bar {
-        flex: 1;
-        height: 10px;
-        background: #e1e4e8;
-        border-radius: 5px;
-        overflow: hidden;
-    }
-    .dsa-progress-fill {
-        height: 100%;
-        background: #2ea44f;
-        width: 0%;
-        transition: width 0.3s ease;
-    }
-    .dsa-controls {
-        display: flex;
-        gap: 10px;
-    }
-    .dsa-btn {
-        padding: 5px 12px;
-        border: 1px solid #d1d5da;
-        border-radius: 6px;
-        cursor: pointer;
-        font-weight: 600;
-        background: #f6f8fa;
-        color: #24292e;
-        transition: 0.2s;
-    }
-    .dsa-btn:hover { background: #e1e4e8; }
-    .dsa-btn-danger { color: #cb2431; border-color: #d73a49; }
-    .dsa-btn-danger:hover { background: #cb2431; color: white; }
+        /* DSA Tracker Custom CSS */
+        .dsa-tracker-dashboard {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: #fff;
+            border-bottom: 2px solid #e1e4e8;
+            padding: 10px 20px;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+        }
 
-    /* Checkbox & List Styles */
-    .dsa-checkbox {
-        margin-right: 10px !important;
-        cursor: pointer;
-        width: 16px;
-        height: 16px;
-        vertical-align: text-bottom;
-    }
-    .dsa-completed {
-        text-decoration: line-through;
-        opacity: 0.7;
-    }
-    /* Adjust main content padding so dashboard doesn't cover it */
-    body { padding-top: 60px !important; }
+        .dsa-dashboard-content {
+            max-width: 900px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .dsa-progress-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        #dsa-progress-text {
+            font-weight: bold;
+            min-width: 120px;
+            color: #24292e;
+        }
+
+        .dsa-progress-bar {
+            flex: 1;
+            height: 10px;
+            background: #e1e4e8;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .dsa-progress-fill {
+            height: 100%;
+            background: #2ea44f;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .dsa-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .dsa-btn {
+            padding: 5px 12px;
+            border: 1px solid #d1d5da;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            background: #f6f8fa;
+            color: #24292e;
+            transition: 0.2s;
+        }
+
+        .dsa-btn:hover {
+            background: #e1e4e8;
+        }
+
+        .dsa-btn-danger {
+            color: #cb2431;
+            border-color: #d73a49;
+        }
+
+        .dsa-btn-danger:hover {
+            background: #cb2431;
+            color: white;
+        }
+
+        /* Accordion Styles */
+        .dsa-section-header {
+            cursor: pointer;
+            display: flex !important;
+            flex-direction: column;
+            /* Stack main text and progress bar */
+            justify-content: center;
+            padding: 0 !important;
+            /* Reset padding for custom inner layout */
+            margin: 20px 0 10px 0 !important;
+            background: #fff;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            transition: all 0.2s;
+            user-select: none;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .dsa-section-header:hover {
+            border-color: #d1d5db;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Inner container for flex layout of text/icon */
+        .dsa-header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 18px;
+            width: 100%;
+            background: transparent;
+            z-index: 2;
+        }
+
+        .dsa-section-title {
+            font-weight: 700;
+            color: #111827;
+            font-size: 1.1em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .dsa-section-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.9em;
+            color: #6b7280;
+        }
+
+        .dsa-mini-badge {
+            background: #f3f4f6;
+            padding: 2px 8px;
+            border-radius: 99px;
+            font-weight: 600;
+            font-size: 0.85em;
+            color: #4b5563;
+        }
+
+        .dsa-section-header.dsa-completed-section .dsa-mini-badge {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .dsa-header-icon {
+            transition: transform 0.3s;
+            transform: rotate(0deg);
+            font-size: 0.8em;
+        }
+
+        .dsa-section-header.dsa-collapsed .dsa-header-icon {
+            transform: rotate(-90deg);
+        }
+
+        /* Section Progress Bar (Bottom of header) */
+        .dsa-section-progress {
+            height: 4px;
+            width: 100%;
+            background: #f3f4f6;
+            position: relative;
+        }
+
+        .dsa-section-progress-fill {
+            height: 100%;
+            background: #10b981;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .dsa-section-content {
+            animation: fadeIn 0.3s ease-in-out;
+            padding: 0 4px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-5px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Checkbox & List Styles */
+        .dsa-checkbox {
+            margin-right: 10px !important;
+            cursor: pointer;
+            width: 16px;
+            height: 16px;
+            vertical-align: text-bottom;
+        }
+
+        .dsa-completed {
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+
+        /* Adjust main content padding so dashboard doesn't cover it */
+        body {
+            padding-top: 60px !important;
+        }
     </style>
     <!-- The content below will be included at the end of the <head> element. -->
     <script type="text/javascript">
@@ -947,49 +1077,38 @@
             const progressFill = document.getElementById('dsa-progress-fill');
 
             // 2. Identify and Inject Checkboxes
-            // Strategy: Look for lists immediately following "Easy", "Medium", "Hard" headers
             const problemListItems = [];
-            // Select all H4s, then find their next sibling UL
+            // Parse all H4s to find problems
             document.querySelectorAll('h4').forEach(h4 => {
                 const difficulty = h4.textContent.trim();
                 if (['Easy', 'Medium', 'Hard'].some(d => difficulty.includes(d))) {
                     let nextElem = h4.nextElementSibling;
-                    // Skip any whitespace nodes or unrelated nodes to find the UL
                     while (nextElem && nextElem.tagName !== 'UL' && nextElem.tagName !== 'H4') {
                         nextElem = nextElem.nextElementSibling;
                     }
-
                     if (nextElem && nextElem.tagName === 'UL') {
                         nextElem.querySelectorAll('li').forEach(li => {
                             const link = li.querySelector('a');
                             if (link) {
                                 totalProblems++;
                                 const problemName = link.textContent.trim();
-                                // Create a unique ID based on the link href or text + difficulty context is safer but text is usually unique enough here
                                 const id = btoa(problemName + link.getAttribute('href')).replace(/[^a-zA-Z0-9]/g, '');
 
                                 problemListItems.push({ li, id, link });
 
-                                // Create Checkbox
                                 const checkbox = document.createElement('input');
                                 checkbox.type = 'checkbox';
                                 checkbox.className = 'dsa-checkbox';
                                 checkbox.checked = !!state[id];
-                                if (state[id]) {
-                                    li.classList.add('dsa-completed');
-                                }
+                                if (state[id]) li.classList.add('dsa-completed');
 
                                 checkbox.addEventListener('change', (e) => {
                                     state[id] = e.target.checked;
-                                    if (e.target.checked) {
-                                        li.classList.add('dsa-completed');
-                                    } else {
-                                        li.classList.remove('dsa-completed');
-                                    }
+                                    if (e.target.checked) li.classList.add('dsa-completed');
+                                    else li.classList.remove('dsa-completed');
                                     saveState();
                                     updateDashboard();
                                 });
-
                                 li.prepend(checkbox);
                             }
                         });
@@ -997,7 +1116,91 @@
                 }
             });
 
-            // 3. State Helpers
+            // 3. Build Accordions & Track Section Progress
+            document.querySelectorAll('h2').forEach(h2 => {
+                const isTopic = /^\d+\./.test(h2.textContent.trim());
+                if (!isTopic) return;
+
+                // Create content wrapper
+                const wrapper = document.createElement('div');
+                wrapper.className = 'dsa-section-content';
+
+                // Collect siblings
+                let next = h2.nextSibling;
+                const elementsToMove = [];
+                while (next && next.tagName !== 'H2') {
+                    elementsToMove.push(next);
+                    next = next.nextSibling;
+                }
+
+                if (elementsToMove.length > 0) {
+                    h2.parentNode.insertBefore(wrapper, h2.nextSibling);
+                    elementsToMove.forEach(el => wrapper.appendChild(el));
+
+                    h2.classList.add('dsa-section-header');
+
+                    // --- Enhanced Header Rendering ---
+                    const originalText = h2.textContent.trim();
+                    h2.innerHTML = `
+                        <div class="dsa-header-inner">
+                            <span class="dsa-section-title">${originalText}</span>
+                            <div class="dsa-section-meta">
+                                <span class="dsa-mini-badge">0/0</span>
+                                <span class="dsa-header-icon">▼</span>
+                            </div>
+                        </div>
+                        <div class="dsa-section-progress">
+                            <div class="dsa-section-progress-fill" style="width: 0%"></div>
+                        </div>
+                    `;
+
+                    // Stats Logic for this section
+                    const checkboxes = wrapper.querySelectorAll('.dsa-checkbox');
+                    const sectionTotal = checkboxes.length;
+                    const badge = h2.querySelector('.dsa-mini-badge');
+                    const fill = h2.querySelector('.dsa-section-progress-fill');
+
+                    const updateSectionStats = () => {
+                        const checkedCount = Array.from(checkboxes).filter(cb => cb.checked).length;
+                        const pct = sectionTotal === 0 ? 0 : Math.round((checkedCount / sectionTotal) * 100);
+
+                        badge.textContent = `${checkedCount}/${sectionTotal}`;
+                        fill.style.width = `${pct}%`;
+
+                        // Completion Styling (green badge)
+                        if (checkedCount === sectionTotal && sectionTotal > 0) {
+                            h2.classList.add('dsa-completed-section');
+                        } else {
+                            h2.classList.remove('dsa-completed-section');
+                        }
+                    };
+
+                    // Initial Update
+                    updateSectionStats();
+
+                    // Listen for global updates or specific checkbox changes
+                    // Since specific validation relies on event bubbling or direct attachment:
+                    // We'll attach a listener to each checkbox in this wrapper
+                    checkboxes.forEach(cb => {
+                        cb.addEventListener('change', updateSectionStats);
+                    });
+
+                    // Toggle Logic
+                    // Use inner container to prevent progress bar clicks from triggering
+                    h2.querySelector('.dsa-header-inner').addEventListener('click', (e) => {
+                        h2.classList.toggle('dsa-collapsed');
+                        wrapper.style.display = h2.classList.contains('dsa-collapsed') ? 'none' : 'block';
+                    });
+
+                    // Default state
+                    h2.classList.add('dsa-collapsed');
+                    wrapper.style.display = 'none';
+                }
+            });
+
+
+
+            // 4. State Helpers
             function saveState() {
                 localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
             }
@@ -1005,12 +1208,11 @@
             function updateDashboard() {
                 const solved = Object.values(state).filter(Boolean).length;
                 const percentage = totalProblems === 0 ? 0 : Math.round((solved / totalProblems) * 100);
-
                 progressText.textContent = `${solved} / ${totalProblems} Solved (${percentage}%)`;
                 progressFill.style.width = `${percentage}%`;
             }
 
-            // 4. Button Handlers
+            // 5. Button Handlers
             document.getElementById('dsa-random-btn').addEventListener('click', () => {
                 const unsolved = problemListItems.filter(item => !state[item.id]);
                 if (unsolved.length === 0) {
@@ -1018,8 +1220,17 @@
                     return;
                 }
                 const randomItem = unsolved[Math.floor(Math.random() * unsolved.length)];
+
+                // Ensure section is open
+                const wrapper = randomItem.li.closest('.dsa-section-content');
+                if (wrapper) {
+                    const header = wrapper.previousElementSibling;
+                    if (header && header.classList.contains('dsa-section-header') && header.classList.contains('dsa-collapsed')) {
+                        header.click(); // Expand
+                    }
+                }
+
                 randomItem.link.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                // Flash effect
                 randomItem.li.style.backgroundColor = '#fff3cd';
                 setTimeout(() => randomItem.li.style.backgroundColor = '', 2000);
             });
@@ -1028,7 +1239,6 @@
                 if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
                     state = {};
                     saveState();
-                    // Uncheck all UI
                     document.querySelectorAll('.dsa-checkbox').forEach(cb => cb.checked = false);
                     document.querySelectorAll('.dsa-completed').forEach(li => li.classList.remove('dsa-completed'));
                     updateDashboard();
@@ -1074,27 +1284,6 @@
             <li><strong>Close:</strong> Attempt without notes.</li>
             <li><strong>Rewrite:</strong> Summarize the approach in your own words.</li>
             <li><strong>Review:</strong> Revisit after 48 hours.</li>
-        </ol>
-        <hr>
-        <h2 id="table-of-contents">Table of Contents </h2>
-        <ol>
-            <li><a href="#1-arrays--hashing-">Arrays &amp; Hashing</a></li>
-            <li><a href="#2-two-pointers-">Two Pointers</a></li>
-            <li><a href="#3-sliding-window-">Sliding Window</a></li>
-            <li><a href="#4-stack-">Stack</a></li>
-            <li><a href="#5-binary-search-">Binary Search</a></li>
-            <li><a href="#6-linked-list-">Linked List</a></li>
-            <li><a href="#7-greedy-">Greedy</a></li>
-            <li><a href="#8-intervals-">Intervals</a></li>
-            <li><a href="#9-bit-manipulation-">Bit Manipulation</a></li>
-            <li><a href="#10-math--geometry-">Math &amp; Geometry</a></li>
-            <li><a href="#11-heap--priority-queue-">Heap / Priority Queue</a></li>
-            <li><a href="#12-trees-">Trees</a></li>
-            <li><a href="#13-tries-">Tries</a></li>
-            <li><a href="#14-backtracking-">Backtracking</a></li>
-            <li><a href="#15-graphs-">Graphs</a></li>
-            <li><a href="#16-dynamic-programming-">Dynamic Programming</a></li>
-            <li><a href="#17-divide--conquer-">Divide &amp; Conquer</a></li>
         </ol>
         <hr>
         <h2 id="how-to-use-this-guide">How to Use This Guide </h2>
@@ -2080,11 +2269,16 @@
             <li>Memory usage</li>
             <li>Deletion</li>
         </ul>
-        <p><strong>Must-Know Problems:</strong></p>
+        <h4 id="medium-trie">Medium </h4>
         <ul>
-            <li>Implement Trie (208)</li>
-            <li>Design Add and Search Words Data Structure (211)</li>
-            <li>Word Search II (212)</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/implement-trie-prefix-tree/">Implement Trie (Prefix Tree)</a>
+                (208)</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/design-add-and-search-words-data-structure/">Design Add and
+                    Search Words Data Structure</a> (211)</li>
+            </ul>
+            <h4 id="hard-trie">Hard </h4>
+            <ul>
+                <li><a target="_blank" href="https://leetcode.com/problems/word-search-ii/">Word Search II</a> (212)</li>
         </ul>
         <hr>
         <h2 id="14-backtracking-">14. BACKTRACKING 🔄 </h2>
@@ -2471,147 +2665,5 @@
         </ul>
 
     </div>
-
-
-
-
-
-
-
-
-
-
-    <script type="text/javascript">
-        document.addEventListener("DOMContentLoaded", function () {
-            // CSS Injection
-            const style = document.createElement('style');
-            style.innerHTML = `
-                .dsa-tracker-checkbox {
-                    margin-right: 10px;
-                    cursor: pointer;
-                    accent-color: #4caf50;
-                    transform: scale(1.2);
-                }
-                .dsa-tracker-dashboard {
-                    position: fixed;
-                    bottom: 20px;
-                    right: 20px;
-                    background: white;
-                    padding: 15px;
-                    border-radius: 8px;
-                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-                    border: 1px solid #e0e0e0;
-                    z-index: 1000;
-                    font-family: inherit;
-                    min-width: 200px;
-                    animation: slideIn 0.5s ease-out;
-                }
-                @keyframes slideIn {
-                    from { transform: translateY(20px); opacity: 0; }
-                    to { transform: translateY(0); opacity: 1; }
-                }
-                .dsa-tracker-dashboard h3 {
-                    margin: 0 0 10px 0;
-                    font-size: 16px;
-                    text-align: center;
-                    color: #333;
-                }
-                .dsa-progress-bar-container {
-                    width: 100%;
-                    height: 10px;
-                    background-color: #f0f0f0;
-                    border-radius: 5px;
-                    overflow: hidden;
-                    margin-bottom: 8px;
-                }
-                .dsa-progress-bar {
-                    height: 100%;
-                    background-color: #4caf50;
-                    width: 0%;
-                    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-                }
-                .dsa-stats {
-                    text-align: center;
-                    font-size: 14px;
-                    color: #666;
-                    font-weight: 500;
-                }
-                .completed-question {
-                    text-decoration: line-through;
-                    color: #aaa !important;
-                    transition: color 0.3s;
-                }
-                /* Hide sidebar toggle if it conflicts */
-                #sidebar-toc-btn { margin-bottom: 60px; }
-            `;
-            document.head.appendChild(style);
-
-            // Dashboard Injection
-            const dashboard = document.createElement('div');
-            dashboard.className = 'dsa-tracker-dashboard';
-            dashboard.innerHTML = `
-                <h3>🚀 Your Progress</h3>
-                <div class="dsa-progress-bar-container">
-                    <div class="dsa-progress-bar" id="dsaProgressBar"></div>
-                </div>
-                <div class="dsa-stats" id="dsaStats">Loading...</div>
-            `;
-            document.body.appendChild(dashboard);
-
-            // Logic
-            const links = document.querySelectorAll('a[href*="leetcode.com"]');
-            let completedCount = 0;
-            const totalCount = links.length;
-
-            function updateStats() {
-                const percentage = totalCount === 0 ? 0 : Math.round((completedCount / totalCount) * 100);
-                document.getElementById('dsaProgressBar').style.width = percentage + '%';
-                document.getElementById('dsaStats').textContent = `${completedCount} / ${totalCount} Solved (${percentage}%)`;
-            }
-
-            links.forEach(link => {
-                // Ensure we only track actual problem links (usually /problems/)
-                if (!link.href.includes('/problems/')) return;
-
-                const problemUrl = link.href;
-                // Use a simplified key to avoid issues with query params if any, though usually canonical
-                // We'll just use the full URL for simplicity as they seem consistent in the file
-                const storageKey = 'dsa_tracker_' + problemUrl;
-
-                const checkbox = document.createElement('input');
-                checkbox.type = 'checkbox';
-                checkbox.className = 'dsa-tracker-checkbox';
-
-                // wrapper for alignment
-                // link.parentNode is likely an 'li', but let's check.
-                // We'll insert checkbox before the link.
-
-                // Load state
-                if (localStorage.getItem(storageKey) === 'true') {
-                    checkbox.checked = true;
-                    link.classList.add('completed-question');
-                    completedCount++;
-                }
-
-                checkbox.addEventListener('change', function () {
-                    if (this.checked) {
-                        localStorage.setItem(storageKey, 'true');
-                        link.classList.add('completed-question');
-                        completedCount++;
-                    } else {
-                        localStorage.removeItem(storageKey);
-                        link.classList.remove('completed-question');
-                        completedCount--;
-                    }
-                    updateStats();
-                });
-
-                link.parentNode.insertBefore(checkbox, link);
-            });
-
-            updateStats();
-        });
-    </script>
 </body>
-
 </html>
