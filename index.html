@@ -6,245 +6,21 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet"
         href="file:////Users/devesrawat/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.8.20/crossnote/dependencies/katex/katex.min.css">
     <style>
-        code[class*=language-],
-        pre[class*=language-] {
-            color: #333;
-            background: 0 0;
-            font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
-            text-align: left;
-            white-space: pre;
-            word-spacing: normal;
-            word-break: normal;
-            word-wrap: normal;
-            line-height: 1.4;
-            -moz-tab-size: 8;
-            -o-tab-size: 8;
-            tab-size: 8;
-            -webkit-hyphens: none;
-            -moz-hyphens: none;
-            -ms-hyphens: none;
-            hyphens: none
-        }
-
-        pre[class*=language-] {
-            padding: .8em;
-            overflow: auto;
-            border-radius: 3px;
-            background: #f5f5f5
-        }
-
-        :not(pre)>code[class*=language-] {
-            padding: .1em;
-            border-radius: .3em;
-            white-space: normal;
-            background: #f5f5f5
-        }
-
-        .token.blockquote,
-        .token.comment {
-            color: #969896
-        }
-
-        .token.cdata {
-            color: #183691
-        }
-
-        .token.doctype,
-        .token.macro.property,
-        .token.punctuation,
-        .token.variable {
-            color: #333
-        }
-
-        .token.builtin,
-        .token.important,
-        .token.keyword,
-        .token.operator,
-        .token.rule {
-            color: #a71d5d
-        }
-
-        .token.attr-value,
-        .token.regex,
-        .token.string,
-        .token.url {
-            color: #183691
-        }
-
-        .token.atrule,
-        .token.boolean,
-        .token.code,
-        .token.command,
-        .token.constant,
-        .token.entity,
-        .token.number,
-        .token.property,
-        .token.symbol {
-            color: #0086b3
-        }
-
-        .token.prolog,
-        .token.selector,
-        .token.tag {
-            color: #63a35c
-        }
-
-        .token.attr-name,
-        .token.class,
-        .token.class-name,
-        .token.function,
-        .token.id,
-        .token.namespace,
-        .token.pseudo-class,
-        .token.pseudo-element,
-        .token.url-reference .token.variable {
-            color: #795da3
-        }
-
-        .token.entity {
-            cursor: help
-        }
-
-        .token.title,
-        .token.title .token.punctuation {
-            font-weight: 700;
-            color: #1d3e81
-        }
-
-        .token.list {
-            color: #ed6a43
-        }
-
-        .token.inserted {
-            background-color: #eaffea;
-            color: #55a532
-        }
-
-        .token.deleted {
-            background-color: #ffecec;
-            color: #bd2c00
-        }
-
-        .token.bold {
-            font-weight: 700
-        }
-
-        .token.italic {
-            font-style: italic
-        }
-
-        .language-json .token.property {
-            color: #183691
-        }
-
-        .language-markup .token.tag .token.punctuation {
-            color: #333
-        }
-
-        .language-css .token.function,
-        code.language-css {
-            color: #0086b3
-        }
-
-        .language-yaml .token.atrule {
-            color: #63a35c
-        }
-
-        code.language-yaml {
-            color: #183691
-        }
-
-        .language-ruby .token.function {
-            color: #333
-        }
-
-        .language-markdown .token.url {
-            color: #795da3
-        }
-
-        .language-makefile .token.symbol {
-            color: #795da3
-        }
-
-        .language-makefile .token.variable {
-            color: #183691
-        }
-
-        .language-makefile .token.builtin {
-            color: #0086b3
-        }
-
-        .language-bash .token.keyword {
-            color: #0086b3
-        }
-
-        pre[data-line] {
-            position: relative;
-            padding: 1em 0 1em 3em
-        }
-
-        pre[data-line] .line-highlight-wrapper {
-            position: absolute;
-            top: 0;
-            left: 0;
-            background-color: transparent;
-            display: block;
-            width: 100%
-        }
-
-        pre[data-line] .line-highlight {
-            position: absolute;
-            left: 0;
-            right: 0;
-            padding: inherit 0;
-            margin-top: 1em;
-            background: hsla(24, 20%, 50%, .08);
-            background: linear-gradient(to right, hsla(24, 20%, 50%, .1) 70%, hsla(24, 20%, 50%, 0));
-            pointer-events: none;
-            line-height: inherit;
-            white-space: pre
-        }
-
-        pre[data-line] .line-highlight:before,
-        pre[data-line] .line-highlight[data-end]:after {
-            content: attr(data-start);
-            position: absolute;
-            top: .4em;
-            left: .6em;
-            min-width: 1em;
-            padding: 0 .5em;
-            background-color: hsla(24, 20%, 50%, .4);
-            color: #f4f1ef;
-            font: bold 65%/1.5 sans-serif;
-            text-align: center;
-            vertical-align: .3em;
-            border-radius: 999px;
-            text-shadow: none;
-            box-shadow: 0 1px #fff
-        }
-
-        pre[data-line] .line-highlight[data-end]:after {
-            content: attr(data-end);
-            top: auto;
-            bottom: .4em
-        }
-
         html body {
             font-family: 'Helvetica Neue', Helvetica, 'Segoe UI', Arial, freesans, sans-serif;
             font-size: 16px;
             line-height: 1.6;
-            color: #333;
-            background-color: #fff;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
             overflow: initial;
             box-sizing: border-box;
             word-wrap: break-word
-        }
-
-        html body>:first-child {
-            margin-top: 0
         }
 
         html body h1,
@@ -256,221 +32,274 @@
             line-height: 1.2;
             margin-top: 1em;
             margin-bottom: 16px;
-            color: #000
-        }
-
-        html body h1 {
-            font-size: 2.25em;
-            font-weight: 300;
-            padding-bottom: .3em
-        }
-
-        html body h2 {
-            font-size: 1.75em;
-            font-weight: 400;
-            padding-bottom: .3em
-        }
-
-        html body h3 {
-            font-size: 1.5em;
-            font-weight: 500
-        }
-
-        html body h4 {
-            font-size: 1.25em;
-            font-weight: 600
-        }
-
-        html body h5 {
-            font-size: 1.1em;
-            font-weight: 600
-        }
-
-        html body h6 {
-            font-size: 1em;
-            font-weight: 600
-        }
-
-        html body h1,
-        html body h2,
-        html body h3,
-        html body h4,
-        html body h5 {
-            font-weight: 600
-        }
-
-        html body h5 {
-            font-size: 1em
-        }
-
-        html body h6 {
-            color: #5c5c5c
+            color: var(--text-primary);
         }
 
         html body strong {
-            color: #000
-        }
-
-        html body del {
-            color: #5c5c5c
-        }
-
-        html body a:not([href]) {
-            color: inherit;
-            text-decoration: none
+            color: var(--text-primary);
         }
 
         html body a {
-            color: #08c;
+            color: var(--accent-green);
             text-decoration: none
         }
 
         html body a:hover {
-            color: #00a3f5;
-            text-decoration: none
+            color: var(--accent-green);
+            text-decoration: underline;
         }
 
-        html body img {
-            max-width: 100%
+        /* Update Code Blocks for Dark Mode Support */
+        code[class*=language-],
+        pre[class*=language-] {
+            color: var(--text-primary);
+            background: 0 0;
+            font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+            text-align: left;
+            line-height: 1.5;
         }
 
-        html body>p {
-            margin-top: 0;
-            margin-bottom: 16px;
-            word-wrap: break-word
+        pre[class*=language-] {
+            padding: 1em;
+            margin: .5em 0;
+            overflow: auto;
+            border-radius: 6px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03);
         }
 
-        html body>ol,
-        html body>ul {
-            margin-bottom: 16px
+        :not(pre)>code[class*=language-] {
+            background: var(--bg-secondary);
+            color: var(--accent-danger);
+            padding: .1em;
+            border-radius: .3em;
         }
 
-        html body ol,
-        html body ul {
-            padding-left: 2em
+        /* Syntax Highlighting Tokens */
+        .token.comment,
+        .token.prolog,
+        .token.doctype,
+        .token.cdata {
+            color: var(--token-comment);
+            font-style: italic;
         }
 
-        html body ol.no-list,
-        html body ul.no-list {
-            padding: 0;
-            list-style-type: none
+        .token.punctuation {
+            color: var(--text-secondary);
         }
 
-        html body ol ol,
-        html body ol ul,
-        html body ul ol,
-        html body ul ul {
-            margin-top: 0;
-            margin-bottom: 0
+        .token.namespace {
+            opacity: .7;
         }
 
-        html body li {
-            margin-bottom: 0
+        .token.property,
+        .token.tag,
+        .token.boolean,
+        .token.number,
+        .token.constant,
+        .token.symbol,
+        .token.deleted {
+            color: var(--token-number);
         }
 
-        html body li.task-list-item {
-            list-style: none
+        .token.selector,
+        .token.attr-name,
+        .token.string,
+        .token.char,
+        .token.builtin,
+        .token.inserted {
+            color: var(--token-string);
         }
 
-        html body li>p {
-            margin-top: 0;
-            margin-bottom: 0
+        .token.operator,
+        .token.entity,
+        .token.url,
+        .language-css .token.string,
+        .style .token.string {
+            color: var(--token-operator);
         }
 
-        html body .task-list-item-checkbox {
-            margin: 0 .2em .25em -1.8em;
-            vertical-align: middle
+        .token.atrule,
+        .token.attr-value,
+        .token.keyword {
+            color: var(--token-keyword);
         }
 
-        html body .task-list-item-checkbox:hover {
-            cursor: pointer
+        .token.function,
+        .token.class-name {
+            color: var(--token-function);
         }
+
+        .token.regex,
+        .token.important,
+        .token.variable {
+            color: var(--token-variable);
+        }
+
+        .token.bold {
+            font-weight: bold;
+        }
+
+        .token.italic {
+            font-style: italic;
+        }
+        /* Global List View Container */
+        #dsa-global-list-view {
+            display: none;
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        #dsa-global-list-view.active {
+            display: block;
+        }
+
+        /* Hide main content when list view is active */
+        body.view-mode-list .crossnote {
+            display: none !important;
+        }
+
+        /* List Items in Global View */
+        .dsa-list-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            transition: transform 0.1s;
+        }
+
+        .dsa-list-no {
+            font-family: monospace;
+            color: var(--text-secondary);
+            width: 50px; /* Increased to fit 3 digits */
+            min-width: 50px; /* Prevent shrinking */
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .dsa-list-item:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .dsa-list-item.completed {
+            background-color: #f0fff4;
+            border-color: #bbf7d0;
+        }
+
+        .dark-mode .dsa-list-item.completed {
+            background-color: #064e3b;
+            border-color: #065f46;
+        }
+
+        .dsa-list-left {
+            display: flex;
+            align-items: center;
+            gap: 15px; /* Use gap for consistent spacing */
+            flex: 1;
+            min-width: 0; /* Enable flex truncation */
+            margin-right: 15px; /* Spacing from badge */
+        }
+
+        .dsa-problem-link {
+            color: var(--text-primary);
+            font-weight: 500;
+            text-decoration: none;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .dsa-problem-link:hover {
+            color: var(--accent-green);
+        }
+
+        /* Badges */
+        .dsa-badge {
+            font-size: 0.75em;
+            font-weight: bold;
+            padding: 4px 12px;
+            border-radius: 99px;
+            white-space: nowrap;
+        }
+        .dsa-badge.Easy { background: #dcfce7; color: #166534; }
+        .dsa-badge.Medium { background: #fff7ed; color: #9a3412; }
+        .dsa-badge.Hard { background: #fef2f2; color: #991b1b; }
+
+        .dark-mode .dsa-badge.Easy { background: #064e3b; color: #a7f3d0; }
+        .dark-mode .dsa-badge.Medium { background: #431407; color: #fdba74; }
+        .dark-mode .dsa-badge.Hard { background: #450a0a; color: #fca5a5; }
+
+        /* Sort Controls */
+        .dsa-sort-controls {
+            display: flex;
+            justify-content: center; /* Center the button */
+            padding: 10px 0;
+            position: sticky;
+            top: 60px; /* Adjust based on dashboard height */
+            z-index: 900;
+            background: var(--bg-primary); /* Ensure background covers content */
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 15px;
+        }
+        .dsa-sort-label {
+            color: var(--text-secondary);
+            font-size: 0.9em;
+        }
+        .dsa-sort-btn {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 5px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+        .dsa-sort-btn:hover { background: var(--hover-bg); }
+        .dsa-sort-btn.active {
+            background: var(--accent-green);
+            color: white;
+            border-color: var(--accent-green);
+        }
+
+        /* Highlight Animation */
+        @keyframes dsa-flash {
+            0% { background-color: var(--accent-green); color: white; }
+            40% { background-color: var(--accent-green); color: white; }
+            100% { background-color: transparent; color: inherit; }
+        }
+
+        .dsa-highlight-item {
+            animation: dsa-flash 2.5s ease-out;
+            border-radius: 4px;
+        }
+
+
 
         html body blockquote {
             margin: 16px 0;
             font-size: inherit;
             padding: 0 15px;
-            color: #5c5c5c;
-            background-color: #f0f0f0;
-            border-left: 4px solid #d6d6d6
-        }
-
-        html body blockquote>:first-child {
-            margin-top: 0
-        }
-
-        html body blockquote>:last-child {
-            margin-bottom: 0
-        }
-
-        html body hr {
-            height: 4px;
-            margin: 32px 0;
-            background-color: #d6d6d6;
-            border: 0 none
-        }
-
-        html body table {
-            margin: 10px 0 15px 0;
-            border-collapse: collapse;
-            border-spacing: 0;
-            display: block;
-            width: 100%;
-            overflow: auto;
-            word-break: normal;
-            word-break: keep-all
-        }
-
-        html body table th {
-            font-weight: 700;
-            color: #000
+            color: var(--text-secondary);
+            background-color: var(--bg-secondary);
+            border-left: 4px solid var(--border-color);
         }
 
         html body table td,
         html body table th {
-            border: 1px solid #d6d6d6;
-            padding: 6px 13px
+            border: 1px solid var(--border-color);
+            padding: 6px 13px;
+            color: var(--text-primary);
         }
 
-        html body dl {
-            padding: 0
-        }
-
-        html body dl dt {
-            padding: 0;
-            margin-top: 16px;
-            font-size: 1em;
-            font-style: italic;
-            font-weight: 700
-        }
-
-        html body dl dd {
-            padding: 0 16px;
-            margin-bottom: 16px
-        }
-
-        html body code {
-            font-family: Menlo, Monaco, Consolas, 'Courier New', monospace;
-            font-size: .85em;
-            color: #000;
-            background-color: #f0f0f0;
-            border-radius: 3px;
-            padding: .2em 0
-        }
-
-        html body code::after,
-        html body code::before {
-            letter-spacing: -.2em;
-            content: '\00a0'
-        }
-
-        html body pre>code {
-            padding: 0;
-            margin: 0;
-            word-break: normal;
-            white-space: pre;
-            background: 0 0;
-            border: 0
+        html body table th {
+            font-weight: 700;
+            background-color: var(--bg-secondary);
         }
 
         html body .highlight {
@@ -841,20 +670,173 @@
         /* Please visit the URL below for more information: */
         /*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
         /* DSA Tracker Custom CSS */
-        .dsa-tracker-dashboard {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            background: #fff;
-            border-bottom: 2px solid #e1e4e8;
-            padding: 10px 20px;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            display: flex;
-            justify-content: center;
+
+        /* Theme Variables */
+        :root {
+            /* Modern Palette (Slate/Emerald) */
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --border-color: #e2e8f0;
+            --accent-green: #10b981;
+            --accent-danger: #ef4444;
+            --card-bg: #ffffff;
+            --hover-bg: #f1f5f9;
+
+            /* Shadows for depth */
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -1px rgb(0 0 0 / 0.06);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -2px rgb(0 0 0 / 0.05);
+
+            /* Syntax Highlighting - Light */
+            --token-comment: #6a737d;
+            --token-keyword: #d73a49;
+            --token-function: #6f42c1;
+            --token-string: #032f62;
+            --token-number: #005cc5;
+            --token-operator: #d73a49;
+            --token-variable: #e36209;
         }
 
+        .dark-mode {
+            /* Dark Mode Palette (Slate 900) */
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --border-color: #334155;
+            --accent-green: #34d399;
+            --accent-danger: #f87171;
+            --card-bg: #1e293b;
+            --hover-bg: #334155;
+
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4);
+
+            /* Syntax Highlighting - Dark */
+            --token-comment: #8b949e;
+            --token-keyword: #ff7b72;
+            --token-function: #d2a8ff;
+            --token-string: #a5d6ff;
+            --token-number: #79c0ff;
+            --token-operator: #ff7b72;
+            --token-variable: #ffa657;
+
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+        }
+
+        html body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background-color: var(--bg-primary);
+            overflow: initial;
+            box-sizing: border-box;
+            word-wrap: break-word;
+            padding-top: 100px; /* Clear floating dashboard */
+            -webkit-font-smoothing: antialiased; /* Crisp text */
+            -moz-osx-font-smoothing: grayscale;
+        }
+        /* Dashboard - Glassmorphism & Floating */
+        .dsa-tracker-dashboard {
+            position: fixed;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 1000px;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            z-index: 1000;
+            padding: 12px 20px;
+            border-radius: 16px;
+            box-shadow: var(--shadow-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .dark-mode .dsa-tracker-dashboard {
+            background: rgba(30, 41, 59, 0.85); /* Dark slate with opacity */
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Sort Controls Sticky Header */
+        .dsa-sort-controls {
+            display: flex;
+            justify-content: center;
+            padding: 15px 0;
+            position: sticky;
+            top: 80px; /* Adjusted for floating dashboard */
+            z-index: 900;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            margin-bottom: 20px;
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.3s;
+        }
+
+        .dark-mode .dsa-sort-controls {
+            background: rgba(15, 23, 42, 0.9);
+        }
+
+        /* Buttons (Premium Feel) */
+        .dsa-btn, .dsa-sort-btn {
+            padding: 8px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .dsa-btn:hover, .dsa-sort-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: var(--shadow-md);
+            background: var(--hover-bg);
+        }
+
+        .dsa-btn:active, .dsa-sort-btn:active {
+            transform: translateY(0);
+        }
+
+        /* List Items (Modern Cards) */
+        .dsa-list-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 14px 20px;
+            margin-bottom: 8px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .dsa-list-item:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--accent-green);
+        }
+
+        /* Badges */
+        .dsa-badge {
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 20px;
+            letter-spacing: 0.02em;
+        }
         .dsa-dashboard-content {
             max-width: 900px;
             width: 100%;
@@ -874,20 +856,21 @@
         #dsa-progress-text {
             font-weight: bold;
             min-width: 120px;
-            color: #24292e;
+            color: var(--text-primary);
         }
 
         .dsa-progress-bar {
             flex: 1;
             height: 10px;
-            background: #e1e4e8;
+            background: var(--bg-secondary);
             border-radius: 5px;
+            border: 1px solid var(--border-color);
             overflow: hidden;
         }
 
         .dsa-progress-fill {
             height: 100%;
-            background: #2ea44f;
+            background: var(--accent-green);
             width: 0%;
             transition: width 0.3s ease;
         }
@@ -899,26 +882,26 @@
 
         .dsa-btn {
             padding: 5px 12px;
-            border: 1px solid #d1d5da;
+            border: 1px solid var(--border-color);
             border-radius: 6px;
             cursor: pointer;
             font-weight: 600;
-            background: #f6f8fa;
-            color: #24292e;
+            background: var(--bg-secondary);
+            color: var(--text-primary);
             transition: 0.2s;
         }
 
         .dsa-btn:hover {
-            background: #e1e4e8;
+            background: var(--hover-bg);
         }
 
         .dsa-btn-danger {
-            color: #cb2431;
-            border-color: #d73a49;
+            color: var(--accent-danger);
+            border-color: var(--accent-danger);
         }
 
         .dsa-btn-danger:hover {
-            background: #cb2431;
+            background: var(--accent-danger);
             color: white;
         }
 
@@ -932,9 +915,9 @@
             padding: 0 !important;
             /* Reset padding for custom inner layout */
             margin: 20px 0 10px 0 !important;
-            background: #fff;
+            background: var(--card-bg);
             border-radius: 8px;
-            border: 1px solid #e5e7eb;
+            border: 1px solid var(--border-color);
             transition: all 0.2s;
             user-select: none;
             overflow: hidden;
@@ -942,7 +925,7 @@
         }
 
         .dsa-section-header:hover {
-            border-color: #d1d5db;
+            border-color: var(--text-secondary);
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         }
 
@@ -959,7 +942,7 @@
 
         .dsa-section-title {
             font-weight: 700;
-            color: #111827;
+            color: var(--text-primary);
             font-size: 1.1em;
             display: flex;
             align-items: center;
@@ -971,21 +954,26 @@
             align-items: center;
             gap: 12px;
             font-size: 0.9em;
-            color: #6b7280;
+            color: var(--text-secondary);
         }
 
         .dsa-mini-badge {
-            background: #f3f4f6;
+            background: var(--bg-secondary);
             padding: 2px 8px;
             border-radius: 99px;
             font-weight: 600;
             font-size: 0.85em;
-            color: #4b5563;
+            color: var(--text-secondary);
         }
 
         .dsa-section-header.dsa-completed-section .dsa-mini-badge {
             background: #dcfce7;
             color: #166534;
+        }
+
+        .dark-mode .dsa-section-header.dsa-completed-section .dsa-mini-badge {
+            background: #064e3b;
+            color: #a7f3d0;
         }
 
         .dsa-header-icon {
@@ -1002,13 +990,13 @@
         .dsa-section-progress {
             height: 4px;
             width: 100%;
-            background: #f3f4f6;
+            background: var(--bg-secondary);
             position: relative;
         }
 
         .dsa-section-progress-fill {
             height: 100%;
-            background: #10b981;
+            background: var(--accent-green);
             width: 0%;
             transition: width 0.5s ease;
         }
@@ -1056,6 +1044,15 @@
             let state = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
             let totalProblems = 0;
 
+            // Theme Logic
+            const THEME_KEY = 'dsa-theme';
+            const body = document.body;
+            const currentTheme = localStorage.getItem(THEME_KEY);
+
+            if (currentTheme === 'dark') {
+                body.classList.add('dark-mode');
+            }
+
             // 1. Inject Dashboard
             const dashboard = document.createElement('div');
             dashboard.className = 'dsa-tracker-dashboard';
@@ -1066,12 +1063,21 @@
                         <div class="dsa-progress-bar"><div class="dsa-progress-fill" id="dsa-progress-fill"></div></div>
                     </div>
                     <div class="dsa-controls">
+                        <button id="dsa-theme-btn" class="dsa-btn" title="Toggle Theme">🌓</button>
+                        <button id="dsa-list-btn" class="dsa-btn" title="Compact List View">📋 List View</button>
                         <button id="dsa-random-btn" class="dsa-btn">🎲 I'm Feeling Lucky</button>
                         <button id="dsa-reset-btn" class="dsa-btn dsa-btn-danger">Reset</button>
                     </div>
                 </div>
             `;
             document.body.prepend(dashboard);
+
+            // Theme Toggle Handler
+            document.getElementById('dsa-theme-btn').addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                const isDark = body.classList.contains('dark-mode');
+                localStorage.setItem(THEME_KEY, isDark ? 'dark' : 'light');
+            });
 
             const progressText = document.getElementById('dsa-progress-text');
             const progressFill = document.getElementById('dsa-progress-fill');
@@ -1087,6 +1093,7 @@
                         nextElem = nextElem.nextElementSibling;
                     }
                     if (nextElem && nextElem.tagName === 'UL') {
+                        nextElem.classList.add('dsa-problem-list'); // Tag for List View filtering
                         nextElem.querySelectorAll('li').forEach(li => {
                             const link = li.querySelector('a');
                             if (link) {
@@ -1095,6 +1102,10 @@
                                 const id = btoa(problemName + link.getAttribute('href')).replace(/[^a-zA-Z0-9]/g, '');
 
                                 problemListItems.push({ li, id, link });
+
+                                // Clean up difficulty text (remove extra spaces/newlines)
+                                const safeDiff = difficulty.replace(/\s+/g, ' ').trim();
+                                li.setAttribute('data-diff', safeDiff);
 
                                 const checkbox = document.createElement('input');
                                 checkbox.type = 'checkbox';
@@ -1212,7 +1223,199 @@
                 progressFill.style.width = `${percentage}%`;
             }
 
-            // 5. Button Handlers
+            const VIEW_KEY = 'dsa-view-mode';
+
+            // Inject Global List Container
+            const globalListContainer = document.createElement('div');
+            globalListContainer.id = 'dsa-global-list-view';
+            document.body.appendChild(globalListContainer);
+
+            let currentSort = 'default'; // 'default' | 'easy_hard' | 'hard_easy' | 'random'
+            let currentFilter = 'all'; // 'all' | 'easy' | 'medium' | 'hard' | 'todo' | 'done'
+
+            function renderGlobalList() {
+                globalListContainer.innerHTML = '';
+
+                let sortLabel, nextMode;
+                switch (currentSort) {
+                    case 'default': sortLabel = 'Default'; nextMode = 'easy_hard'; break;
+                    case 'easy_hard': sortLabel = 'Easy → Hard'; nextMode = 'hard_easy'; break;
+                    case 'hard_easy': sortLabel = 'Hard → Easy'; nextMode = 'random'; break;
+                    case 'random': sortLabel = 'Random Shuffle'; nextMode = 'default'; break;
+                }
+
+                // Controls
+                const controls = document.createElement('div');
+                controls.className = 'dsa-sort-controls';
+
+                controls.innerHTML = `
+                    <div style="display: flex; gap: 12px; align-items: center;">
+                        <!-- Filter Dropdown -->
+                        <div class="dsa-select-wrapper">
+                            <select id="dsa-filter-select" class="dsa-btn" onchange="window.setFilter(this.value)">
+                                <option value="all" ${currentFilter === 'all' ? 'selected' : ''}>Filter: All</option>
+                                <option value="easy" ${currentFilter === 'easy' ? 'selected' : ''}>Difficulty: Easy</option>
+                                <option value="medium" ${currentFilter === 'medium' ? 'selected' : ''}>Difficulty: Medium</option>
+                                <option value="hard" ${currentFilter === 'hard' ? 'selected' : ''}>Difficulty: Hard</option>
+                                <option value="todo" ${currentFilter === 'todo' ? 'selected' : ''}>Status: To Do</option>
+                                <option value="done" ${currentFilter === 'done' ? 'selected' : ''}>Status: Done</option>
+                            </select>
+                        </div>
+
+                        <!-- Sort Toggle -->
+                        <button class="dsa-sort-btn active" onclick="window.setSort('${nextMode}')" style="min-width: 200px; display: inline-flex; justify-content: space-between; align-items: center; gap: 10px;">
+                            <span>Sort: <strong>${sortLabel}</strong></span>
+                            <span>🔄</span>
+                        </button>
+                    </div>
+                `;
+                globalListContainer.appendChild(controls);
+
+                // Clone and Sort Items
+                let items = [...problemListItems];
+
+                // 1. apply Filter
+                if (currentFilter !== 'all') {
+                    items = items.filter(item => {
+                        const diff = (item.li.getAttribute('data-diff') || 'Unknown');
+                        const isCompleted = state[item.id] || false;
+
+                        if (currentFilter === 'easy') return diff.includes('Easy');
+                        if (currentFilter === 'medium') return diff.includes('Medium');
+                        if (currentFilter === 'hard') return diff.includes('Hard');
+                        if (currentFilter === 'todo') return !isCompleted;
+                        if (currentFilter === 'done') return isCompleted;
+                        return true;
+                    });
+                }
+
+                // 2. Apply Sort
+                if (currentSort === 'easy_hard' || currentSort === 'hard_easy') {
+                    const weight = { 'Easy': 1, 'Medium': 2, 'Hard': 3, 'Unknown': 99 };
+                    items.sort((a, b) => {
+                        const da = a.li.getAttribute('data-diff') || 'Unknown';
+                        const db = b.li.getAttribute('data-diff') || 'Unknown';
+                        const wA = weight[da] !== undefined ? weight[da] : 99;
+                        const wB = weight[db] !== undefined ? weight[db] : 99;
+                        const diff = wA - wB;
+                        return currentSort === 'easy_hard' ? diff : -diff;
+                    });
+                } else if (currentSort === 'random') {
+                    // Fisher-Yates Shuffle
+                    for (let i = items.length - 1; i > 0; i--) {
+                        const j = Math.floor(Math.random() * (i + 1));
+                        [items[i], items[j]] = [items[j], items[i]];
+                    }
+                }
+
+                // Render logic
+                if (items.length === 0) {
+                    const empty = document.createElement('div');
+                    empty.style.textAlign = 'center';
+                    empty.style.padding = '40px';
+                    empty.style.color = 'var(--text-secondary)';
+                    empty.textContent = 'No problems found for this filter.';
+                    globalListContainer.appendChild(empty);
+                    return;
+                }
+
+                const createItem = (item, index) => {
+                    const el = document.createElement('div');
+                    el.className = `dsa-list-item ${state[item.id] ? 'completed' : ''}`;
+                    const diff = item.li.getAttribute('data-diff') || 'Unknown';
+
+                    el.innerHTML = `
+                        <div class="dsa-list-left">
+                            <span class="dsa-list-no">${index + 1}.</span>
+                            <input type="checkbox" class="dsa-checkbox" ${state[item.id] ? 'checked' : ''}>
+                            <a href="${item.link.href}" target="_blank" class="dsa-problem-link">${item.link.textContent}</a>
+                        </div>
+                        <span class="dsa-badge ${diff}">${diff}</span>
+                    `;
+
+                    // Bind Events
+                    const cb = el.querySelector('input');
+                    cb.addEventListener('change', (e) => {
+                        const checked = e.target.checked;
+                        state[item.id] = checked;
+                        saveState();
+
+                        // Sync original DOM
+                        const originalCb = item.li.querySelector('.dsa-checkbox');
+                        if (originalCb) {
+                            originalCb.checked = checked;
+                            // Trigger change on original to update section stats
+                            originalCb.dispatchEvent(new Event('change'));
+                        }
+
+                        // Update UI
+                        if (checked) el.classList.add('completed');
+                        else el.classList.remove('completed');
+
+                        // Re-render if filtering by status to remove/add dynamically
+                        if (currentFilter === 'todo' || currentFilter === 'done') {
+                            renderGlobalList();
+                        }
+                        updateDashboard();
+                    });
+
+                    globalListContainer.appendChild(el);
+                }
+
+                items.forEach(createItem);
+            }
+
+            // Expose logic
+            window.setSort = (mode) => {
+                currentSort = mode;
+                renderGlobalList();
+            };
+            window.setFilter = (mode) => {
+                currentFilter = mode;
+                renderGlobalList();
+            };
+
+            // Toggle Logic
+            function toggleListView(show) {
+                const listBtn = document.getElementById('dsa-list-btn');
+
+                if (show) {
+                    document.body.classList.add('view-mode-list');
+                    globalListContainer.classList.add('active');
+                    if (listBtn) {
+                        listBtn.textContent = '📝 Full View';
+                        listBtn.style.background = 'var(--accent-green)';
+                        listBtn.style.color = 'white';
+                    }
+                    renderGlobalList();
+                } else {
+                    document.body.classList.remove('view-mode-list');
+                    globalListContainer.classList.remove('active');
+                    if (listBtn) {
+                        listBtn.textContent = '📋 List View';
+                        listBtn.style.background = '';
+                        listBtn.style.color = '';
+                    }
+                }
+                localStorage.setItem(VIEW_KEY, show ? 'list' : 'full');
+            }
+
+            // List View Button
+            const listBtn = document.getElementById('dsa-list-btn');
+            if (listBtn) {
+                listBtn.addEventListener('click', () => {
+                    const isList = document.body.classList.contains('view-mode-list');
+                    toggleListView(!isList);
+                });
+            }
+
+            // Init View State
+            const savedView = localStorage.getItem(VIEW_KEY);
+            if (savedView === 'list') {
+                toggleListView(true);
+            }
+
+            // 6. Button Handlers
             document.getElementById('dsa-random-btn').addEventListener('click', () => {
                 const unsolved = problemListItems.filter(item => !state[item.id]);
                 if (unsolved.length === 0) {
@@ -1221,20 +1424,39 @@
                 }
                 const randomItem = unsolved[Math.floor(Math.random() * unsolved.length)];
 
-                // Ensure section is open
+                // If in list view, use global container
+                if (document.body.classList.contains('view-mode-list')) {
+                    const allGlobalItems = globalListContainer.querySelectorAll('.dsa-problem-link');
+                    for (let link of allGlobalItems) {
+                        if (link.textContent === randomItem.link.textContent) {
+                            const row = link.closest('.dsa-list-item');
+                            row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            row.classList.remove('dsa-highlight-item');
+                            void row.offsetWidth;
+                            row.classList.add('dsa-highlight-item');
+                            setTimeout(() => row.classList.remove('dsa-highlight-item'), 2500);
+                            return;
+                        }
+                    }
+                }
+
+                // Normal Mode Logic
                 const wrapper = randomItem.li.closest('.dsa-section-content');
                 if (wrapper) {
-                    const header = wrapper.previousElementSibling;
-                    if (header && header.classList.contains('dsa-section-header') && header.classList.contains('dsa-collapsed')) {
-                        header.click(); // Expand
+                    wrapper.style.display = 'block';
+                    if (wrapper.previousElementSibling && wrapper.previousElementSibling.classList.contains('dsa-collapsed')) {
+                        wrapper.previousElementSibling.classList.remove('dsa-collapsed');
                     }
                 }
 
                 randomItem.link.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                randomItem.li.style.backgroundColor = '#fff3cd';
-                setTimeout(() => randomItem.li.style.backgroundColor = '', 2000);
+                randomItem.li.classList.remove('dsa-highlight-item');
+                void randomItem.li.offsetWidth;
+                randomItem.li.classList.add('dsa-highlight-item');
+                setTimeout(() => {
+                    randomItem.li.classList.remove('dsa-highlight-item');
+                }, 2500);
             });
-
             document.getElementById('dsa-reset-btn').addEventListener('click', () => {
                 if (confirm('Are you sure you want to reset all progress? This cannot be undone.')) {
                     state = {};
@@ -1276,15 +1498,6 @@
                 </ul>
             </li>
         </ul>
-        <hr>
-        <h3 id="how-to-use">How to Use </h3>
-        <ol>
-            <li><strong>Pattern:</strong> Learn the core template.</li>
-            <li><strong>Practice:</strong> Solve 3-5 related problems.</li>
-            <li><strong>Close:</strong> Attempt without notes.</li>
-            <li><strong>Rewrite:</strong> Summarize the approach in your own words.</li>
-            <li><strong>Review:</strong> Revisit after 48 hours.</li>
-        </ol>
         <hr>
         <h2 id="how-to-use-this-guide">How to Use This Guide </h2>
         <ol>
@@ -2271,14 +2484,15 @@
         </ul>
         <h4 id="medium-trie">Medium </h4>
         <ul>
-            <li><a target="_blank" href="https://leetcode.com/problems/implement-trie-prefix-tree/">Implement Trie (Prefix Tree)</a>
+            <li><a target="_blank" href="https://leetcode.com/problems/implement-trie-prefix-tree/">Implement Trie
+                    (Prefix Tree)</a>
                 (208)</li>
             <li><a target="_blank" href="https://leetcode.com/problems/design-add-and-search-words-data-structure/">Design Add and
                     Search Words Data Structure</a> (211)</li>
-            </ul>
-            <h4 id="hard-trie">Hard </h4>
-            <ul>
-                <li><a target="_blank" href="https://leetcode.com/problems/word-search-ii/">Word Search II</a> (212)</li>
+        </ul>
+        <h4 id="hard-trie">Hard </h4>
+        <ul>
+            <li><a target="_blank" href="https://leetcode.com/problems/word-search-ii/">Word Search II</a> (212)</li>
         </ul>
         <hr>
         <h2 id="14-backtracking-">14. BACKTRACKING 🔄 </h2>
