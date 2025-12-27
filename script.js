@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", function () {
     };
     const resetTimer = () => {
         if (isTimerRunning) {
-          clearInterval(timerInterval); isTimerRunning = false;
+            clearInterval(timerInterval); isTimerRunning = false;
         }
         seconds = 0;
         const display = document.getElementById('dsa-timer-display');

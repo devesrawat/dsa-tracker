@@ -164,12 +164,12 @@ body.view-mode-list .crossnote {
 .dsa-list-no {
     font-family: monospace;
     color: var(--text-secondary);
-    width: 50px;
-    /* Increased to fit 3 digits */
-    min-width: 50px;
-    /* Prevent shrinking */
-    margin-right: 10px;
+    width: 40px;
+        min-width: 40px;
+        /* Fixed width/font for alignment */
     font-weight: bold;
+    text-align: center;
+        /* Center the number */
 }
 
 .dsa-list-item:hover {
@@ -183,8 +183,9 @@ body.view-mode-list .crossnote {
 }
 
 .dark-mode .dsa-list-item.completed {
-    background-color: #064e3b;
-    border-color: #065f46;
+    background-color: rgba(16, 185, 129, 0.15);
+        /* More subtle tint */
+        border-color: rgba(16, 185, 129, 0.3);
 }
 
 .dsa-list-left {
@@ -811,6 +812,10 @@ html body {
 .dsa-sort-controls {
     display: flex;
     justify-content: center;
+    align-items: center;
+        /* Vertically center */
+        gap: 15px;
+        /* Space between filter and sort */
     padding: 15px 0;
     position: sticky;
     top: 80px;
@@ -823,6 +828,21 @@ html body {
     transition: background-color 0.3s;
 }
 
+/* Ensure select matches button height precisely */
+select.dsa-btn {
+    appearance: none;
+    /* Remove default arrow to style consistently if needed, but for now just fix height */
+    padding-right: 30px;
+    /* Space for arrow */
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    background-position: right .7em top 50%;
+    background-size: .65em auto;
+}
+
+.dark-mode select.dsa-btn {
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2394a3b8%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+}
 .dark-mode .dsa-sort-controls {
     background: rgba(15, 23, 42, 0.9);
 }
@@ -1114,8 +1134,15 @@ body {
 }
 
 @keyframes toast-in {
-    from { opacity: 0; transform: translateY(20px) scale(0.9); }
-    to { opacity: 1; transform: translateY(0) scale(1); }
+    from {
+            opacity: 0;
+            transform: translateY(20px) scale(0.9);
+        }
+    
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
 }
 
 /* 2. Glassmorphism Modal */
@@ -1184,18 +1211,39 @@ body {
     align-items: center;
     gap: 4px;
     color: white;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    }
+    
+    .dsa-srs-btn:hover {
+        transform: scale(1.02);
+        filter: brightness(1.1);
+    }
+    
+    .dsa-srs-btn:active {
+        transform: scale(0.98);
+    }
+    
+    .srs-again {
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+    }
+    
+    .srs-hard {
+        background: linear-gradient(135deg, #f97316, #ea580c);
 }
 
-.dsa-srs-btn:hover { transform: scale(1.02); filter: brightness(1.1); }
-.dsa-srs-btn:active { transform: scale(0.98); }
+.srs-good {
+    background: linear-gradient(135deg, #3b82f6, #2563eb);
+}
 
-.srs-again { background: linear-gradient(135deg, #ef4444, #dc2626); }
-.srs-hard { background: linear-gradient(135deg, #f97316, #ea580c); }
-.srs-good { background: linear-gradient(135deg, #3b82f6, #2563eb); }
-.srs-easy { background: linear-gradient(135deg, #10b981, #059669); }
+.srs-easy {
+    background: linear-gradient(135deg, #10b981, #059669);
+}
 
-.srs-interval { font-size: 0.8em; opacity: 0.9; font-weight: 400; }
+.srs-interval {
+    font-size: 0.8em;
+    opacity: 0.9;
+    font-weight: 400;
+}
 
 /* Notes Editor */
 .dsa-note-editor {
@@ -1224,16 +1272,22 @@ body {
     right: 8px;
     padding: 4px 8px;
     font-size: 0.8rem;
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.2);
+    background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 6px;
     color: var(--text-secondary);
     cursor: pointer;
     opacity: 0;
     transition: opacity 0.2s;
 }
-pre:hover .dsa-copy-btn { opacity: 1; }
-.dsa-copy-btn:hover { background: rgba(255,255,255,0.2); color: var(--text-primary); }
+pre:hover .dsa-copy-btn {
+    opacity: 1;
+}
+
+.dsa-copy-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+    color: var(--text-primary);
+}
 
 /* Note Icon in List */
 .dsa-note-trigger {
@@ -1243,15 +1297,24 @@ pre:hover .dsa-copy-btn { opacity: 1; }
     margin-left: 8px;
     font-size: 1.1em;
 }
-.dsa-list-item:hover .dsa-note-trigger { opacity: 0.6; }
-.dsa-note-trigger.has-notes { opacity: 1 !important; }
-.dsa-note-trigger:hover { transform: scale(1.2); opacity: 1; }
+.dsa-list-item:hover .dsa-note-trigger {
+    opacity: 0.6;
+}
+
+.dsa-note-trigger.has-notes {
+    opacity: 1 !important;
+}
+
+.dsa-note-trigger:hover {
+    transform: scale(1.2);
+    opacity: 1;
+}
 
 /* Dashboard Tweaks */
 .dsa-dashboard-right {
-   display: flex;
-   gap: 10px;
-   align-items: center;
+    display: flex;
+        gap: 10px;
+        align-items: center;
 }
 
 .dsa-timer-display {
@@ -1268,6 +1331,7 @@ pre:hover .dsa-copy-btn { opacity: 1; }
     min-width: 80px;
     text-align: center;
 }
+
 .dsa-timer-display.active {
     border-color: var(--accent-green);
     color: var(--accent-green);
