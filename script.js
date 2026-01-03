@@ -216,6 +216,18 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     // 3. Identify and Inject Checkboxes
+    const BLIND75_TITLES = [
+        "two sum", "best time to buy and sell stock", "contains duplicate", "product of array except self", "maximum subarray", "maximum product subarray", "find minimum in rotated sorted array", "search in rotated sorted array", "3sum", "container with most water",
+        "sum of two integers", "number of 1 bits", "counting bits", "missing number", "reverse bits",
+        "climbing stairs", "coin change", "longest increasing subsequence", "longest common subsequence", "word break", "combination sum", "house robber", "decode ways", "unique paths", "jump game",
+        "clone graph", "course schedule", "pacific atlantic water flow", "number of islands", "longest consecutive sequence", "alien dictionary", "graph valid tree", "number of connected components",
+        "insert interval", "merge intervals", "non-overlapping intervals", "meeting rooms",
+        "reverse linked list", "detect cycle", "merge two sorted lists", "merge k sorted lists", "remove nth node", "reorder list",
+        "set matrix zeroes", "spiral matrix", "rotate image", "word search",
+        "longest substring without repeating", "longest repeating character replacement", "minimum window substring", "valid anagram", "group anagrams", "valid parentheses", "valid palindrome", "palindromic substrings", "encode and decode strings",
+        "maximum depth of binary tree", "same tree", "invert binary tree", "binary tree maximum path sum", "binary tree level order traversal", "serialize and deserialize binary tree", "subtree of another tree", "construct binary tree from preorder", "validate binary search tree", "kth smallest element in a bst", "lowest common ancestor", "implement trie", "design add and search words"
+    ];
+
     const problemListItems = [];
     document.querySelectorAll('h4').forEach(h4 => {
         const difficulty = h4.textContent.trim();
@@ -234,6 +246,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
                         li.setAttribute('data-diff', difficulty.replace(/\s+/g, ' ').trim());
                         li.setAttribute('data-problem-id', id);
+
+                        const titleLower = link.textContent.trim().toLowerCase();
+                        if (BLIND75_TITLES.some(t => titleLower.includes(t))) {
+                            const badge = document.createElement('span');
+                            badge.className = 'dsa-badge blind75';
+                            badge.textContent = 'Blind 75';
+                            // Append to link/li text loop
+                            li.appendChild(badge);
+                            li.setAttribute('data-tags', 'blind75');
+                        }
 
                         const wrapper = document.createElement('div');
                         wrapper.style.display = 'inline-flex'; wrapper.style.alignItems = 'center'; wrapper.style.marginRight = '8px';
@@ -375,6 +397,8 @@ document.addEventListener("DOMContentLoaded", function () {
     globalListContainer.id = 'dsa-global-list-view';
     document.body.appendChild(globalListContainer);
 
+
+
     let currentSort = 'default', currentFilter = 'all';
     window.setFilter = (val) => { currentFilter = val; renderGlobalList(); };
     window.setSort = (val) => { currentSort = val; renderGlobalList(); };
@@ -394,6 +418,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         <option value="todo" ${currentFilter === 'todo' ? 'selected' : ''}>Status: To Do</option>
                         <option value="done" ${currentFilter === 'done' ? 'selected' : ''}>Status: Done</option>
                         <option value="notes" ${currentFilter === 'notes' ? 'selected' : ''}>📝 Has Notes</option>
+                        <option value="blind75" ${currentFilter === 'blind75' ? 'selected' : ''}>🔥 Blind 75</option>
                     </select>
                 </div>
                 <button class="dsa-sort-btn active" onclick="window.setSort('${nextSort}')"><span>Sort: <strong>${sortLabel}</strong></span> 🔄</button>
@@ -410,6 +435,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (currentFilter === 'todo') return !s.done;
                 if (currentFilter === 'done') return s.done;
                 if (currentFilter === 'notes') return !!s.notes;
+                if (currentFilter === 'blind75') return item.li.getAttribute('data-tags') === 'blind75';
                 return true;
             });
         }
@@ -440,7 +466,10 @@ document.addEventListener("DOMContentLoaded", function () {
                         ${s.notes ? '<span title="Has Notes" style="margin-right:5px">📝</span>' : ''}
                         <a href="${item.link.href}" target="_blank" class="dsa-problem-link">${item.link.textContent}</a>
                     </div>
-                    <span class="dsa-badge ${item.li.getAttribute('data-diff')}">${item.li.getAttribute('data-diff')}</span>
+                    <div>
+                        ${item.li.getAttribute('data-tags') === 'blind75' ? '<span class="dsa-badge blind75">Blind 75</span>' : ''}
+                        <span class="dsa-badge ${item.li.getAttribute('data-diff')}">${item.li.getAttribute('data-diff')}</span>
+                    </div>
                  `;
                 el.querySelector('input').addEventListener('change', (e) => {
                     const mainCb = item.li.querySelector('input.dsa-checkbox');
@@ -454,6 +483,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     const listBtn = document.getElementById('dsa-list-btn');
+
     const toggleView = (show) => {
         document.body.classList.toggle('view-mode-list', show);
         globalListContainer.classList.toggle('active', show);
@@ -461,8 +491,19 @@ document.addEventListener("DOMContentLoaded", function () {
         renderGlobalList();
         localStorage.setItem('dsa-view-mode', show ? 'list' : 'full');
     };
-    listBtn.addEventListener('click', () => toggleView(!document.body.classList.contains('view-mode-list')));
-    if (localStorage.getItem('dsa-view-mode') === 'list') toggleView(true);
+
+    listBtn.addEventListener('click', () => {
+        toggleView(!document.body.classList.contains('view-mode-list'));
+    });
+
+    // Init View
+    const savedMode = localStorage.getItem('dsa-view-mode') || 'full';
+    if (savedMode === 'list') toggleView(true);
+
+    // Make switching available for random button
+    window.switchView = (mode) => {
+        if (mode === 'full') toggleView(false);
+    };
 
     // Random Button
     document.getElementById('dsa-random-btn').addEventListener('click', () => {
@@ -470,18 +511,30 @@ document.addEventListener("DOMContentLoaded", function () {
         if (unsolved.length === 0) return window.showToast('All solved!', '🎉');
         const randomItem = unsolved[Math.floor(Math.random() * unsolved.length)];
 
+        // Always switch to full view to jump to problem
         if (document.body.classList.contains('view-mode-list')) {
-            alert(`Random Pick: ${randomItem.link.textContent}`);
-        } else {
-            randomItem.link.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            randomItem.li.classList.add('dsa-highlight-item');
-            setTimeout(() => randomItem.li.classList.remove('dsa-highlight-item'), 2000);
+            window.switchView('full');
+        }
+
+        setTimeout(() => {
+        // Ensure the section is expanded if it's collapsed
             const section = randomItem.li.closest('.dsa-section-content');
             if (section) {
                 section.style.display = 'block';
                 section.previousElementSibling.classList.remove('dsa-collapsed');
             }
-        }
+
+            // Scroll after expansion ensures it's visible
+            setTimeout(() => {
+                randomItem.link.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                // Highlight effect
+                randomItem.li.style.transition = 'background 0.5s';
+                randomItem.li.style.backgroundColor = 'rgba(16, 185, 129, 0.3)';
+                setTimeout(() => randomItem.li.style.backgroundColor = '', 1500);
+            }, 50);
+
+            window.showToast(`Random Pick: ${randomItem.link.textContent}`, '🎲');
+        }, 100);
     });
 
     updateDashboard();

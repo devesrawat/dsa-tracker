@@ -252,6 +252,18 @@ body.view-mode-list .crossnote {
     color: #fca5a5;
 }
 
+.dsa-badge.blind75 {
+    background: #fef3c7;
+    color: #d97706;
+    border: 1px solid #fcd34d;
+    margin-left: 5px;
+}
+
+.dark-mode .dsa-badge.blind75 {
+    background: #451a03;
+    color: #fbbf24;
+    border-color: #78350f;
+}
 /* Sort Controls */
 .dsa-sort-controls {
     display: flex;
@@ -1138,7 +1150,7 @@ body {
             opacity: 0;
             transform: translateY(20px) scale(0.9);
         }
-    
+
         to {
             opacity: 1;
             transform: translateY(0) scale(1);
@@ -1213,20 +1225,20 @@ body {
     color: white;
     text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
     }
-    
+
     .dsa-srs-btn:hover {
         transform: scale(1.02);
         filter: brightness(1.1);
     }
-    
+
     .dsa-srs-btn:active {
         transform: scale(0.98);
     }
-    
+
     .srs-again {
         background: linear-gradient(135deg, #ef4444, #dc2626);
     }
-    
+
     .srs-hard {
         background: linear-gradient(135deg, #f97316, #ea580c);
 }
@@ -1330,10 +1342,4 @@ pre:hover .dsa-copy-btn {
     cursor: pointer;
     min-width: 80px;
     text-align: center;
-}
-
-.dsa-timer-display.active {
-    border-color: var(--accent-green);
-    color: var(--accent-green);
-    background: rgba(16, 185, 129, 0.1);
 }
