@@ -25,18 +25,60 @@
                 learning</strong></p>
         <hr />
         <h2 id="learning-progression-philosophy">📚 Learning Progression Philosophy</h2>
-        <p>This guide is organized so each pattern builds upon previous knowledge:</p>
-        <ol>
-            <li><strong>Phase 1: Foundation (Patterns 1-3)</strong> - Arrays, Two Pointers, Sliding Window</li>
-            <li><strong>Phase 2: Searching & Basic Structures (Patterns 4-6)</strong> - Binary Search, Stack, Linked
-                List</li>
-            <li><strong>Phase 3: Optimization & Math (Patterns 7-11)</strong> - Greedy, Intervals, Bit Manipulation,
-                Math, Heap</li>
-            <li><strong>Phase 4: Trees & Recursion (Patterns 12-14)</strong> - Binary Trees, Tries, Backtracking</li>
-            <li><strong>Phase 5: Graph Mastery (Pattern 15)</strong> - BFS, DFS, Union-Find, Shortest Path</li>
-            <li><strong>Phase 6: Advanced Algorithms (Patterns 16-17)</strong> - Dynamic Programming, Divide & Conquer
-            </li>
-        </ol>
+        <p>This guide is organized so each pattern builds upon previous knowledge. <strong>Follow this order for maximum
+                momentum:</strong></p>
+        <pre>
+🎯 OPTIMIZED LEARNING PATH
+═══════════════════════════════════════════════════════════════════════════════
+
+PHASE 1: FOUNDATION (Week 1-2)
+├─ Pattern 0: Prerequisites ──────► Big-O, complexity, interview tricks
+└─ Pattern 1: Arrays & Hashing ───► Core data manipulation
+
+PHASE 2: POINTER TECHNIQUES (Week 2-3)
+├─ Pattern 2: Two Pointers ───────► Converging pointers on arrays
+├─ Pattern 3: Sliding Window ─────► Variable-size window (extends two pointers)
+└─ Pattern 6: Linked Lists ───────► Pointer manipulation on nodes
+    └─ WHY HERE? Same mental model as two pointers!
+
+PHASE 3: SEARCHING & STACK (Week 3-4)
+├─ Pattern 4: Binary Search ──────► Divide and eliminate
+└─ Pattern 5: Stack ──────────────► LIFO + monotonic patterns
+
+PHASE 4: TREES & RECURSION (Week 4-6) ⭐ CRITICAL PHASE
+├─ Pattern 12: Binary Trees ──────► Recursion mastery through traversals
+├─ Pattern 13: Tries ─────────────► Specialized tree structure
+└─ Pattern 11: Heaps ─────────────► Complete binary tree (priority queue)
+    └─ WHY HERE? Heaps ARE trees!
+
+PHASE 5: GRAPHS & EXPLORATION (Week 6-8)
+├─ Pattern 15: Graphs ────────────► BFS/DFS generalized from trees
+└─ Pattern 14: Backtracking ──────► Systematic exploration with pruning
+    └─ WHY HERE? Uses DFS exploration pattern!
+
+PHASE 6: OPTIMIZATION PATTERNS (Week 8-9)
+├─ Pattern 7: Greedy ─────────────► Local optimal choices
+├─ Pattern 8: Intervals ──────────► Sorting + greedy
+├─ Pattern 9: Bit Manipulation ───► Low-level optimizations
+└─ Pattern 10: Math & Geometry ───► Mathematical techniques
+
+PHASE 7: DYNAMIC PROGRAMMING (Week 9-11) ⭐ HARDEST PHASE
+├─ Pattern 16: Dynamic Programming ► Optimal substructure (needs recursion!)
+└─ Pattern 17: Divide & Conquer ──► Split, solve, merge
+
+PHASE 8: INTERVIEW ESSENTIALS (Week 11-12)
+├─ Pattern 18: Design Questions ──► Combines all patterns
+└─ Interview Resources ───────────► Company prep, survival guide
+
+═══════════════════════════════════════════════════════════════════════════════
+        </pre>
+        <p><strong>Key Dependencies:</strong></p>
+        <ul>
+            <li>🔗 <strong>Linked Lists after Two Pointers</strong> - Same pointer intuition</li>
+            <li>🌳 <strong>Heaps in Trees phase</strong> - Heaps are binary trees!</li>
+            <li>🔍 <strong>Backtracking after Trees</strong> - Uses DFS exploration</li>
+            <li>💎 <strong>DP last</strong> - Requires recursion mastery from Phase 4</li>
+        </ul>
         <hr />
         <h2 id="how-to-use-this-guide">How to Use This Guide</h2>
         <ol>
@@ -49,9 +91,123 @@
             <li><strong>Revisit</strong>: Come back after 48 hours, 1 week, 1 month</li>
         </ol>
         <hr />
+        <h1 id="pattern-0-foundation-prerequisites">PATTERN 0: FOUNDATION PREREQUISITES 📐</h1>
+        <p><strong>Master These Before Diving Into Patterns</strong></p>
+        <h2 id="time-space-complexity-analysis">Time/Space Complexity Analysis</h2>
+        <p><strong>MUST KNOW - This is asked in 100% of technical interviews</strong></p>
+        <h3 id="big-o-hierarchy">Big-O Hierarchy (Fastest to Slowest)</h3>
+        <pre>O(1) < O(log n) < O(n) < O(n log n) < O(n²) < O(2^n) < O(n!)
+
+Practical Examples:
+├─ O(1): HashMap lookup, array index access
+├─ O(log n): Binary search, balanced BST lookup
+├─ O(n): Linear scan, single loop
+├─ O(n log n): Merge sort, heap sort, efficient sorting
+├─ O(n²): Nested loops, brute force pairs
+├─ O(2^n): Subsets, recursive fibonacci (naive)
+└─ O(n!): Permutations, traveling salesman brute force
+        </pre>
+        <h3 id="space-complexity-types">Space Complexity Types</h3>
+        <pre><code class="language-python"># INPUT SPACE vs AUXILIARY SPACE
+def example():
+    """
+    IMPORTANT DISTINCTION:
+    - Input Space: Memory used by input (usually not counted)
+    - Auxiliary Space: Extra memory your algorithm uses
+
+    When interviewer says "O(1) space", they mean auxiliary space
+    """
+    # O(n) input space (the array), O(1) auxiliary space
+    def find_max(arr):
+        maximum = arr[0]  # Only O(1) extra variable
+        for num in arr:
+            maximum = max(maximum, num)
+        return maximum
+
+    # O(n) auxiliary space - we create new data structure
+    def duplicate_array(arr):
+        return arr[:]  # Creates copy = O(n) extra space
+</code></pre>
+        <h3 id="amortized-analysis">Amortized Analysis</h3>
+        <pre><code class="language-python"># AMORTIZED O(1) - Critical for Dynamic Arrays
+def understand_amortized():
+    """
+    ArrayList/Python list resize:
+    - Usually O(1) append
+    - Occasionally O(n) when resize needed
+    - Amortized: O(1) over many operations
+
+    INTERVIEW TRAP: Know when to say "amortized O(1)"
+    Examples:
+    - list.append() in Python: Amortized O(1)
+    - HashMap insert: Amortized O(1) (due to rehashing)
+    """
+    # Amortized analysis example
+    arr = []
+    for i in range(n):  # n appends
+        arr.append(i)   # Each amortized O(1)
+    # Total: O(n), not O(n²)
+</code></pre>
+        <h3 id="best-average-worst-cases">Best/Average/Worst Cases</h3>
+        <pre>
+Algorithm Analysis Cases:
+├─ Best Case: Usually less useful (too optimistic)
+├─ Average Case: What you typically expect
+└─ Worst Case: What interviewers care about most
+
+Examples:
+┌─────────────┬──────────┬──────────┬──────────┐
+│ Algorithm   │ Best     │ Average  │ Worst    │
+├─────────────┼──────────┼──────────┼──────────┤
+│ Quick Sort  │ O(n lg n)│ O(n lg n)│ O(n²)    │
+│ Binary Search│ O(1)    │ O(log n) │ O(log n) │
+│ Hash Lookup │ O(1)     │ O(1)     │ O(n)     │
+└─────────────┴──────────┴──────────┴──────────┘
+        </pre>
+        <h2 id="common-interview-tricks">Common Interview Tricks & Techniques</h2>
+        <h3 id="two-pointer-variants">Two Pointer Variants to Master</h3>
+        <pre><code class="language-python"># CONFLICTING TWO POINTERS (Trapping Rain Water Approach)
+def trap_rain_water(height):
+    """
+    ADVANCED PATTERN: When answer depends on both sides
+    Track maximum from left AND right simultaneously
+
+    Used in: Trapping Rain Water, Container With Most Water
+    """
+    if not height:
+        return 0
+
+    left, right = 0, len(height) - 1
+    left_max, right_max = height[left], height[right]
+    water = 0
+
+    while left &lt; right:
+        if left_max &lt; right_max:
+            left += 1
+            left_max = max(left_max, height[left])
+            water += left_max - height[left]
+        else:
+            right -= 1
+            right_max = max(right_max, height[right])
+            water += right_max - height[right]
+
+    return water
+</code></pre>
+        <h3 id="complexity-reduction-patterns">Complexity Reduction Patterns</h3>
+        <pre>
+Common Optimization Patterns:
+├─ O(n²) → O(n): Use HashMap for lookup
+├─ O(n²) → O(n log n): Sort + Two Pointers
+├─ O(n) → O(log n): Binary Search on sorted data
+├─ O(2^n) → O(n*2^n): Bitmask DP
+└─ O(n!) → O(n*2^n): Bitmask DP for permutations
+        </pre>
+        <hr />
         <h1 id="phase-1-foundation">PHASE 1: FOUNDATION 🏗️</h1>
         <h2 id="1-arrays-hashing">1. ARRAYS &amp; HASHING 🔑</h2>
-        <p><strong>Difficulty:</strong> <span style="color: green">★☆☆</span> | <strong>Foundation Level</strong></p>
+        <p><span style="background: #2563eb; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8em;">📌
+                WEEK 1-2</span> <strong>Difficulty:</strong> <span style="color: green">★☆☆</span> | <strong>Foundation
+                Level</strong></p>
         <h3 id="core-concept">Core Concept</h3>
         <p>Transform O(n²) brute force into O(n) using hash tables for instant lookups. Think: "Do I need to remember
             what I've seen?"</p>
@@ -164,6 +320,35 @@
             return result
         </code></pre>
         <p><strong>Time:</strong> O(n) | <strong>Space:</strong> O(1) excluding output</p>
+        <h4 id="15-dutch-national-flag">1.5 Dutch National Flag (3-Way Partitioning)</h4>
+        <p><strong>Use Case:</strong> Sort array with 3 distinct values in-place (FAANG FAVORITE)</p>
+        <pre><code class="language-python">def sort_colors(nums):
+    """
+    DUTCH NATIONAL FLAG ALGORITHM
+    Sort 0s, 1s, 2s in-place with ONE PASS
+
+    Three pointers:
+    - low: boundary for 0s (next position for 0)
+    - mid: current element being examined
+    - high: boundary for 2s (next position for 2)
+
+    Key: Everything before low is 0, after high is 2
+    """
+    low, mid, high = 0, 0, len(nums) - 1
+
+    while mid &lt;= high:
+        if nums[mid] == 0:
+            nums[low], nums[mid] = nums[mid], nums[low]
+            low += 1
+            mid += 1
+        elif nums[mid] == 1:
+            mid += 1
+        else:  # nums[mid] == 2
+            nums[mid], nums[high] = nums[high], nums[mid]
+            high -= 1
+            # Don't increment mid - need to check swapped element
+</code></pre>
+        <p><strong>Time:</strong> O(n) single pass | <strong>Space:</strong> O(1)</p>
         <h3 id="common-traps">Common Traps 🚨</h3>
         <ul>
             <li>❌ <strong>Hash Collisions</strong>: Rare in Python, but use tuple for composite keys</li>
@@ -206,7 +391,8 @@
             <li><a target="_blank" href="https://leetcode.com/problems/remove-element/">Remove Element</a> (27)</li>
             <li><a target="_blank" href="https://leetcode.com/problems/longest-common-prefix/">Longest Common Prefix</a>
                 (14)</li>
-            <li><a target="_blank" href="https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/">Find the
+            <li><a target="_blank"
+                    href="https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/">Find the
                     Index of the First Occurrence in a String</a> (28)</li>
         </ol>
         <h4 id="medium-core-pattern-practice">Medium (Core Pattern Practice)</h4>
@@ -216,28 +402,41 @@
             </li>
             <li><a target="_blank" href="https://leetcode.com/problems/top-k-frequent-elements/">Top K Frequent
                     Elements</a> (347) -
-                    Frequency + heap/bucket</li>
+                Frequency + heap/bucket</li>
             <li><a target="_blank" href="https://leetcode.com/problems/product-of-array-except-self/">Product of Array
                     Except Self</a>
-                    (238) - Running computation ⭐</li>
-                    <li><a target="_blank" href="https://leetcode.com/problems/valid-sudoku/">Valid Sudoku</a> (36) - Multiple
-                        hash sets</li>
-                    <li><a target="_blank" href="https://leetcode.com/problems/longest-consecutive-sequence/">Longest
-                            Consecutive Sequence</a>
-                        (128) - Set membership ⭐</li>
+                (238) - Running computation ⭐</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/valid-sudoku/">Valid Sudoku</a> (36) - Multiple
+                hash sets</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/longest-consecutive-sequence/">Longest
+                    Consecutive Sequence</a>
+                (128) - Set membership ⭐</li>
             <li><a target="_blank" href="https://leetcode.com/problems/encode-and-decode-strings/">Encode and Decode
                     Strings</a> (271) - String manipulation</li>
             <li><a target="_blank" href="https://leetcode.com/problems/rotate-array/">Rotate Array</a> (189)</li>
             <li><a target="_blank" href="https://leetcode.com/problems/subarray-sum-equals-k/">Subarray Sum Equals K</a>
                 (560) - Prefix Sum ⭐</li>
-            </ol>
-            <hr />
-            <h2 id="2-two-pointers">2. TWO POINTERS 👉👈</h2>
-            <p><strong>Difficulty:</strong> <span style="color: green">★☆☆</span> | <strong>Builds on:</strong> Arrays</p>
-            <h3 id="core-concept_1">Core Concept</h3>
-            <p>Reduce O(n²) nested loops to O(n) by using two pointers that move based on conditions. Think: "Can I
-                eliminate one dimension by smart pointer movement?"</p>
-            <h3 id="when-to-use_1">When to Use</h3>
+            <li><a target="_blank" href="https://leetcode.com/problems/sort-colors/">Sort Colors</a> (75) - Dutch
+                National Flag ⭐⭐</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/4sum/">4Sum</a> (18) - Extension of 3Sum</li>
+            <li><a target="_blank"
+                    href="https://leetcode.com/problems/longest-substring-with-at-most-k-distinct-characters/">Longest
+                    Substring with At Most K Distinct Characters</a> (340) ⭐</li>
+        </ol>
+        <h4 id="hard-arrays">Hard</h4>
+        <ol>
+            <li><a target="_blank" href="https://leetcode.com/problems/trapping-rain-water/">Trapping Rain Water</a>
+                (42) - Two Pointer variant ⭐⭐⭐</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/first-missing-positive/">First Missing
+                    Positive</a> (41) - Array manipulation</li>
+        </ol>
+        <hr />
+        <h2 id="2-two-pointers">2. TWO POINTERS 👉👈</h2>
+        <p><strong>Difficulty:</strong> <span style="color: green">★☆☆</span> | <strong>Builds on:</strong> Arrays</p>
+        <h3 id="core-concept_1">Core Concept</h3>
+        <p>Reduce O(n²) nested loops to O(n) by using two pointers that move based on conditions. Think: "Can I
+            eliminate one dimension by smart pointer movement?"</p>
+        <h3 id="when-to-use_1">When to Use</h3>
         <ul>
             <li>✅ <strong>Sorted arrays</strong> for pair/triplet finding</li>
             <li>✅ In-place array modifications</li>
@@ -365,10 +564,10 @@
 
     return result
     </code></pre>
-    <p><strong>Time:</strong> O(n²) | <strong>Space:</strong> O(1) excluding output</p>
-    <h4 id="24-sliding-window-with-two-pointers">2.4 Sliding Window with Two Pointers</h4>
-    <p><strong>Use Case:</strong> Variable-size windows (covered more in Pattern 3)</p>
-    <pre><code class="language-python">def container_with_most_water(height):
+        <p><strong>Time:</strong> O(n²) | <strong>Space:</strong> O(1) excluding output</p>
+        <h4 id="24-sliding-window-with-two-pointers">2.4 Sliding Window with Two Pointers</h4>
+        <p><strong>Use Case:</strong> Variable-size windows (covered more in Pattern 3)</p>
+        <pre><code class="language-python">def container_with_most_water(height):
         &quot;&quot;&quot;
         Key insight: Move pointer with smaller height
         Why? Larger height might form bigger area with other side
@@ -390,18 +589,20 @@
 
         return max_area
     </code></pre>
-    <p><strong>Time:</strong> O(n) | <strong>Space:</strong> O(1)</p>
-    <h3 id="common-traps_1">Common Traps 🚨</h3>
-    <ul>
-        <li>❌ <strong>Unsorted Input</strong>: Two-pointer collision only works on sorted data</li>
-        <li>❌ <strong>Duplicate Handling</strong>: Must skip duplicates in 3Sum to avoid duplicate triplets</li>
-        <li>❌ <strong>Boundary Conditions</strong>: Use <code>left &lt; right</code> not <code>left &lt;= right</code> for
-            collision</li>
-        <li>❌ <strong>Off-by-One</strong>: Initialize slow pointer correctly (often 0 or 1)</li>
-        <li>❌ <strong>Modifying While Iterating</strong>: Use slow pointer for in-place modifications</li>
-    </ul>
-    <h3 id="decision-tree">Decision Tree</h3>
-    <pre><code>Is array sorted?
+        <p><strong>Time:</strong> O(n) | <strong>Space:</strong> O(1)</p>
+        <h3 id="common-traps_1">Common Traps 🚨</h3>
+        <ul>
+            <li>❌ <strong>Unsorted Input</strong>: Two-pointer collision only works on sorted data</li>
+            <li>❌ <strong>Duplicate Handling</strong>: Must skip duplicates in 3Sum to avoid duplicate triplets</li>
+            <li>❌ <strong>Boundary Conditions</strong>: Use <code>left &lt; right</code> not
+                <code>left &lt;= right</code> for
+                collision
+            </li>
+            <li>❌ <strong>Off-by-One</strong>: Initialize slow pointer correctly (often 0 or 1)</li>
+            <li>❌ <strong>Modifying While Iterating</strong>: Use slow pointer for in-place modifications</li>
+        </ul>
+        <h3 id="decision-tree">Decision Tree</h3>
+        <pre><code>Is array sorted?
     ├─ Yes → Use collision (opposite direction)
     │   └─ Finding pair/sum? → Start from ends, converge
     └─ No → Can you sort? (O(n log n) acceptable?)
@@ -409,11 +610,11 @@
         └─ No → Use hash table (Pattern 1) or sliding window (Pattern 3)
     </code></pre>
 
-    <h3 id="must-know-problems_1">Must-Know Problems</h3>
-    <h4 id="easy">Easy</h4>
-    <ol>
-        <li><a target="_blank" href="https://leetcode.com/problems/valid-palindrome/">Valid Palindrome</a> (125) -
-            Collision pattern
+        <h3 id="must-know-problems_1">Must-Know Problems</h3>
+        <h4 id="easy">Easy</h4>
+        <ol>
+            <li><a target="_blank" href="https://leetcode.com/problems/valid-palindrome/">Valid Palindrome</a> (125) -
+                Collision pattern
             </li>
             <li><a target="_blank" href="https://leetcode.com/problems/remove-duplicates-from-sorted-array/">Remove
                     Duplicates from
@@ -423,13 +624,13 @@
                 collision</li>
             <li><a target="_blank" href="https://leetcode.com/problems/is-subsequence/">Is Subsequence</a> (392) - Same
                 direction</li>
-            </ol>
-            <h4 id="medium">Medium</h4>
-            <ol>
-                <li><a target="_blank" href="https://leetcode.com/problems/3sum/">3Sum</a> (15) - Three pointers ⭐⭐</li>
-                <li><a target="_blank" href="https://leetcode.com/problems/container-with-most-water/">Container With Most
-                        Water</a> (11) -
-                    Greedy collision ⭐</li>
+        </ol>
+        <h4 id="medium">Medium</h4>
+        <ol>
+            <li><a target="_blank" href="https://leetcode.com/problems/3sum/">3Sum</a> (15) - Three pointers ⭐⭐</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/container-with-most-water/">Container With Most
+                    Water</a> (11) -
+                Greedy collision ⭐</li>
             <li><a target="_blank" href="https://leetcode.com/problems/remove-duplicates-from-sorted-array-ii/">Remove
                     Duplicates from
                     Sorted Array II</a> (80) - Fast-slow variant</li>
@@ -637,7 +838,8 @@
         <p><strong>Time:</strong> O(n + m) | <strong>Space:</strong> O(m) where m = len(t)</p>
         <h3 id="common-traps_2">Common Traps 🚨</h3>
         <ul>
-            <li>❌ <strong>Nested Loops</strong>: Should NEVER have nested while loops iterating - only shrink loop inside expand
+            <li>❌ <strong>Nested Loops</strong>: Should NEVER have nested while loops iterating - only shrink loop
+                inside expand
             </li>
             <li>❌ <strong>When to Update Result</strong>:
                 <ul>
@@ -647,7 +849,8 @@
             </li>
             <li>❌ <strong>Counter Cleanup</strong>: Always <code>del dict[key]</code> when count reaches 0</li>
             <li>❌ <strong>Empty Window</strong>: Check <code>if not s: return ""</code></li>
-            <li>❌ <strong>Fixed vs Dynamic</strong>: Fixed = add/remove one at a time, Dynamic = shrink in while loop</li>
+            <li>❌ <strong>Fixed vs Dynamic</strong>: Fixed = add/remove one at a time, Dynamic = shrink in while loop
+            </li>
         </ul>
         <h3 id="decision-tree">Decision Tree</h3>
         <pre><code>Subarray/substring problem?
@@ -684,30 +887,30 @@
                 window variant</li>
             <li><a target="_blank" href="https://leetcode.com/problems/minimum-size-subarray-sum/">Minimum Size Subarray
                     Sum</a> (209) -
-                    Minimum window ⭐</li>
-                    <li><a target="_blank" href="https://leetcode.com/problems/find-all-anagrams-in-a-string/">Find All Anagrams
-                            in a String</a> (438) - Optimization of generic template</li>
-                    </ol>
-                    <h4 id="hard">Hard</h4>
-                    <ol>
+                Minimum window ⭐</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/find-all-anagrams-in-a-string/">Find All Anagrams
+                    in a String</a> (438) - Optimization of generic template</li>
+        </ol>
+        <h4 id="hard">Hard</h4>
+        <ol>
             <li><a target="_blank" href="https://leetcode.com/problems/minimum-window-substring/">Minimum Window
                     Substring</a> (76) -
-                    Master template ⭐⭐⭐</li>
+                Master template ⭐⭐⭐</li>
             <li><a target="_blank" href="https://leetcode.com/problems/sliding-window-maximum/">Sliding Window
                     Maximum</a> (239) - With
-                    deque</li>
+                deque</li>
             <li><a target="_blank"
                     href="https://leetcode.com/problems/substring-with-concatenation-of-all-words/">Substring with
                     Concatenation of All Words</a> (30) - Complex fixed window</li>
-                    </ol>
-                    <hr />
-                    <h1 id="phase-2-searching-basic-data-structures">PHASE 2: SEARCHING &amp; BASIC DATA STRUCTURES 🔍</h1>
-                    <h2 id="4-binary-search">4. BINARY SEARCH 🎯</h2>
-                    <p><strong>Difficulty:</strong> <span style="color: orange">★★☆</span> | <strong>Builds on:</strong> Arrays, Two
-                        Pointers</p>
-                    <h3 id="core-concept_3">Core Concept</h3>
-                    <p>Halve search space on monotonic functions by eliminating impossible halves. Reduces O(n) to O(log n).</p>
-                    <h3 id="when-to-use_3">When to Use</h3>
+        </ol>
+        <hr />
+        <h1 id="phase-2-searching-basic-data-structures">PHASE 2: POINTER TECHNIQUES 👉</h1>
+        <h2 id="4-binary-search">4. BINARY SEARCH 🎯</h2>
+        <p><strong>Difficulty:</strong> <span style="color: orange">★★☆</span> | <strong>Builds on:</strong> Arrays, Two
+            Pointers</p>
+        <h3 id="core-concept_3">Core Concept</h3>
+        <p>Halve search space on monotonic functions by eliminating impossible halves. Reduces O(n) to O(log n).</p>
+        <h3 id="when-to-use_3">When to Use</h3>
         <ul>
             <li>✅ <strong>Sorted arrays</strong> (ascending/descending)</li>
             <li>✅ Finding boundaries/first/last occurrence</li>
@@ -962,7 +1165,7 @@
                 </ul>
             </li>
             <li>❌ <strong>Duplicate Elements</strong>: Standard binary search may not work with duplicates</li>
-            </ul>
+        </ul>
         <h3 id="decision-tree">Decision Tree</h3>
         <pre><code>What are you looking for?
         ├─ Exact value (exists or -1)
@@ -976,15 +1179,15 @@
         └─ Rotated array
             └─ Template 5: Identify sorted half, adjust search
 </code></pre>
-<h3 id="must-know-problems_3">Must-Know Problems</h3>
-<h4 id="easy_2">Easy</h4>
-<ol>
-    <li><a target="_blank" href="https://leetcode.com/problems/binary-search/">Binary Search</a> (704) -
-        Template 1 ⭐</li>
+        <h3 id="must-know-problems_3">Must-Know Problems</h3>
+        <h4 id="easy_2">Easy</h4>
+        <ol>
+            <li><a target="_blank" href="https://leetcode.com/problems/binary-search/">Binary Search</a> (704) -
+                Template 1 ⭐</li>
             <li><a target="_blank" href="https://leetcode.com/problems/search-insert-position/">Search Insert
                     Position</a> (35) -
-                    Template 2 ⭐</li>
-                    <li><a target="_blank" href="https://leetcode.com/problems/sqrtx/">Sqrt(x)</a> (69) - Answer binary search
+                Template 2 ⭐</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/sqrtx/">Sqrt(x)</a> (69) - Answer binary search
             </li>
         </ol>
         <h4 id="medium_2">Medium</h4>
@@ -1001,12 +1204,12 @@
             <li><a target="_blank" href="https://leetcode.com/problems/koko-eating-bananas/">Koko Eating Bananas</a>
                 (875) - Answer
                 binary search ⭐⭐</li>
-                <li><a target="_blank" href="https://leetcode.com/problems/find-peak-element/">Find Peak Element</a> (162) -
-                    Mountain array
-                </li>
-                <li><a target="_blank" href="https://leetcode.com/problems/search-a-2d-matrix/">Search a 2D Matrix</a> (74)
-                    - 2D binary
-                    search</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/find-peak-element/">Find Peak Element</a> (162) -
+                Mountain array
+            </li>
+            <li><a target="_blank" href="https://leetcode.com/problems/search-a-2d-matrix/">Search a 2D Matrix</a> (74)
+                - 2D binary
+                search</li>
             <li><a target="_blank" href="https://leetcode.com/problems/time-based-key-value-store/">Time Based Key-Value
                     Store</a> (981)
                 - Lower bound application</li>
@@ -1021,21 +1224,21 @@
             <li><a target="_blank" href="https://leetcode.com/problems/median-of-two-sorted-arrays/">Median of Two
                     Sorted Arrays</a> (4)
                 - Advanced ⭐⭐⭐</li>
-                </ol>
-                <hr />
-                <h2 id="5-stack">5. STACK 📚</h2>
-                <p><strong>Difficulty:</strong> <span style="color: orange">★★☆</span> | <strong>Foundation Pattern</strong></p>
-                <h3 id="core-concept_4">Core Concept</h3>
-                <p>LIFO (Last In First Out) structure that simulates recursion, tracks recent elements for
-                    matching/monotonicity. Think: "Do I need to remember recent items and process them in reverse?"</p>
-                <h3 id="when-to-use_4">When to Use</h3>
-                <ul>
-                    <li>✅ Matching pairs (parentheses, brackets)</li>
-                    <li>✅ Monotonic problems (next greater/smaller)</li>
-                    <li>✅ Expression evaluation (postfix, infix)</li>
-                    <li>✅ Undo operations, browser history</li>
-                    <li>✅ Depth-first traversal simulation</li>
-                    <li><strong>Signal Words:</strong> "valid", "matching", "next greater", "nearest", "evaluate expression"
+        </ol>
+        <hr />
+        <h2 id="5-stack">5. STACK 📚</h2>
+        <p><strong>Difficulty:</strong> <span style="color: orange">★★☆</span> | <strong>Foundation Pattern</strong></p>
+        <h3 id="core-concept_4">Core Concept</h3>
+        <p>LIFO (Last In First Out) structure that simulates recursion, tracks recent elements for
+            matching/monotonicity. Think: "Do I need to remember recent items and process them in reverse?"</p>
+        <h3 id="when-to-use_4">When to Use</h3>
+        <ul>
+            <li>✅ Matching pairs (parentheses, brackets)</li>
+            <li>✅ Monotonic problems (next greater/smaller)</li>
+            <li>✅ Expression evaluation (postfix, infix)</li>
+            <li>✅ Undo operations, browser history</li>
+            <li>✅ Depth-first traversal simulation</li>
+            <li><strong>Signal Words:</strong> "valid", "matching", "next greater", "nearest", "evaluate expression"
             </li>
         </ul>
         <h3 id="sub-patterns_4">Sub-Patterns</h3>
@@ -1324,7 +1527,8 @@
         <p><strong>Time:</strong> O(1) all operations | <strong>Space:</strong> O(n)</p>
         <h3 id="common-traps_4">Common Traps 🚨</h3>
         <ul>
-            <li>❌ <strong>Empty Stack Pop</strong>: Always check <code>if stack:</code> before <code>stack.pop()</code></li>
+            <li>❌ <strong>Empty Stack Pop</strong>: Always check <code>if stack:</code> before <code>stack.pop()</code>
+            </li>
             <li>❌ <strong>LIFO Confusion</strong>: Remember it's Last In First Out, not FIFO (queue)</li>
             <li>❌ <strong>Monotonic Direction</strong>:
                 <ul>
@@ -1349,63 +1553,64 @@
         └─ Need O(1) min/max access?
             └─ Use specialized stack (5.5)
 </code></pre>
-<h3 id="must-know-problems_4">Must-Know Problems</h3>
-<h4 id="easy_3">Easy</h4>
-<ol>
-    <li><a target="_blank" href="https://leetcode.com/problems/valid-parentheses/">Valid Parentheses</a> (20) -
-        Matching
-        template ⭐⭐</li>
-</ol>
-<h4 id="medium_3">Medium</h4>
-<ol>
-    <li><a target="_blank" href="https://leetcode.com/problems/min-stack/">Min Stack</a> (155) - Specialized
-        stack ⭐</li>
-    <li><a target="_blank" href="https://leetcode.com/problems/daily-temperatures/">Daily Temperatures</a> (739)
-        - Monotonic
-        stack ⭐⭐</li>
-    <li><a target="_blank" href="https://leetcode.com/problems/evaluate-reverse-polish-notation/">Evaluate
-            Reverse Polish
-            Notation</a> (150) - Expression eval</li>
-    <li><a target="_blank" href="https://leetcode.com/problems/generate-parentheses/">Generate Parentheses</a>
-        (22) - Backtrack
-        + validation</li>
-    <li><a target="_blank" href="https://leetcode.com/problems/car-fleet/">Car Fleet</a> (853) - Monotonic stack
-        application
-    </li>
-    <li><a target="_blank" href="https://leetcode.com/problems/simplify-path/">Simplify Path</a> (71) - Stack
-        for path
-        processing</li>
-    <li><a target="_blank" href="https://leetcode.com/problems/decode-string/">Decode String</a> (394) - Nested
-        structures</li>
-    <li><a target="_blank" href="https://leetcode.com/problems/basic-calculator-ii/">Basic Calculator II</a>
-        (227) - String Parsing</li>
-    <li><a target="_blank" href="https://leetcode.com/problems/asteroid-collision/">Asteroid Collision</a> (735)
-        - Collision State</li>
-    <li><a target="_blank" href="https://leetcode.com/problems/remove-k-digits/">Remove K Digits</a> (402) -
-        Monotonic Greedy</li>
-</ol>
-<h4 id="hard_2">Hard</h4>
-<ol>
-    <li><a target="_blank" href="https://leetcode.com/problems/largest-rectangle-in-histogram/">Largest
-            Rectangle in
-            Histogram</a> (84) - Histogram pattern ⭐⭐⭐</li>
-    <li><a target="_blank" href="https://leetcode.com/problems/trapping-rain-water/">Trapping Rain Water</a>
-        (42) - Advanced
-        monotonic</li>
-    <li><a target="_blank" href="https://leetcode.com/problems/basic-calculator/">Basic Calculator</a> (224) -
-        Expression with
-        parentheses ⭐⭐</li>
-    <li><a target="_blank" href="https://leetcode.com/problems/text-justification/">Text Justification</a> (68)
-        - Greedy String Handling</li>
-</ol>
-<hr />
-<h2 id="6-linked-list">6. LINKED LIST 🔗</h2>
-<p><strong>Difficulty:</strong> <span style="color: orange">★★☆</span> | <strong>Builds on:</strong> Two
-    Pointers</p>
-<h3 id="core-concept_5">Core Concept</h3>
-<p>Sequential data structure where each node points to next (and optionally previous). Use pointers for O(1)
-    insertions/deletions, but O(n) access. Think: "Can I do this in-place without extra space?"</p>
-<h3 id="when-to-use_5">When to Use</h3>
+        <h3 id="must-know-problems_4">Must-Know Problems</h3>
+        <h4 id="easy_3">Easy</h4>
+        <ol>
+            <li><a target="_blank" href="https://leetcode.com/problems/valid-parentheses/">Valid Parentheses</a> (20) -
+                Matching
+                template ⭐⭐</li>
+        </ol>
+        <h4 id="medium_3">Medium</h4>
+        <ol>
+            <li><a target="_blank" href="https://leetcode.com/problems/min-stack/">Min Stack</a> (155) - Specialized
+                stack ⭐</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/daily-temperatures/">Daily Temperatures</a> (739)
+                - Monotonic
+                stack ⭐⭐</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/evaluate-reverse-polish-notation/">Evaluate
+                    Reverse Polish
+                    Notation</a> (150) - Expression eval</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/generate-parentheses/">Generate Parentheses</a>
+                (22) - Backtrack
+                + validation</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/car-fleet/">Car Fleet</a> (853) - Monotonic stack
+                application
+            </li>
+            <li><a target="_blank" href="https://leetcode.com/problems/simplify-path/">Simplify Path</a> (71) - Stack
+                for path
+                processing</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/decode-string/">Decode String</a> (394) - Nested
+                structures</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/basic-calculator-ii/">Basic Calculator II</a>
+                (227) - String Parsing</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/asteroid-collision/">Asteroid Collision</a> (735)
+                - Collision State</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/remove-k-digits/">Remove K Digits</a> (402) -
+                Monotonic Greedy</li>
+        </ol>
+        <h4 id="hard_2">Hard</h4>
+        <ol>
+            <li><a target="_blank" href="https://leetcode.com/problems/largest-rectangle-in-histogram/">Largest
+                    Rectangle in
+                    Histogram</a> (84) - Histogram pattern ⭐⭐⭐</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/trapping-rain-water/">Trapping Rain Water</a>
+                (42) - Advanced
+                monotonic</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/basic-calculator/">Basic Calculator</a> (224) -
+                Expression with
+                parentheses ⭐⭐</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/text-justification/">Text Justification</a> (68)
+                - Greedy String Handling</li>
+        </ol>
+        <hr />
+        <h2 id="6-linked-list">6. LINKED LIST 🔗</h2>
+        <p><span style="background: #059669; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8em;">📌
+                WEEK 2-3 (with Two Pointers)</span> <strong>Difficulty:</strong> <span style="color: orange">★★☆</span>
+            | <strong>Builds on:</strong> Two Pointers</p>
+        <h3 id="core-concept_5">Core Concept</h3>
+        <p>Sequential data structure where each node points to next (and optionally previous). Use pointers for O(1)
+            insertions/deletions, but O(n) access. Think: "Can I do this in-place without extra space?"</p>
+        <h3 id="when-to-use_5">When to Use</h3>
         <ul>
             <li>✅ In-place reversals/reordering</li>
             <li>✅ Cycle detection</li>
@@ -1837,13 +2042,14 @@
                 <pre><code class="language-python">dummy = ListNode(0, head)
                 # Work with dummy.next
 return dummy.next</code></pre>
-</li>
-<li>❌ <strong>Null Checks</strong>: Always check <code>if node:</code> and <code>if node.next:</code></li>
-<li>❌ <strong>Cycle Bugs</strong>: In cycle detection, check <code>fast and fast.next</code> before accessing
-    <code>fast.next.next</code>
-</li>
-<li>❌ <strong>Off-by-One</strong>: For "remove nth from end", move fast <code>n+1</code> steps</li>
-</ul>
+            </li>
+            <li>❌ <strong>Null Checks</strong>: Always check <code>if node:</code> and <code>if node.next:</code></li>
+            <li>❌ <strong>Cycle Bugs</strong>: In cycle detection, check <code>fast and fast.next</code> before
+                accessing
+                <code>fast.next.next</code>
+            </li>
+            <li>❌ <strong>Off-by-One</strong>: For "remove nth from end", move fast <code>n+1</code> steps</li>
+        </ul>
         <h3 id="pattern-recognition-guide">Pattern Recognition Guide</h3>
         <pre><code>Linked list problem?
         ├─ Need middle/detect cycle?
@@ -1876,22 +2082,22 @@ return dummy.next</code></pre>
             <li><a target="_blank" href="https://leetcode.com/problems/reverse-linked-list/">Reverse Linked List</a>
                 (206) - Basic
                 reversal ⭐⭐</li>
-                <li><a target="_blank" href="https://leetcode.com/problems/linked-list-cycle/">Linked List Cycle</a> (141) -
-                    Floyd's
-                    algorithm ⭐</li>
-                <li><a target="_blank" href="https://leetcode.com/problems/merge-
+            <li><a target="_blank" href="https://leetcode.com/problems/linked-list-cycle/">Linked List Cycle</a> (141) -
+                Floyd's
+                algorithm ⭐</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/merge-
                 two-sorted-lists/">Merge Two Sorted Lists</a> (21) - Merge pattern ⭐</li>
-                <li><a target="_blank" href="https://leetcode.com/problems/remove-linked-list-elements/">Remove Linked List
-                        Elements</a>
-                    (203) - Deletion</li>
-                <li><a target="_blank" href="https://leetcode.com/problems/palindrome-linked-list/">Palindrome Linked
-                        List</a> (234) -
-                    Reverse + compare</li>
-                </ol>
-                <h4 id="medium_4">Medium</h4>
-                <ol>
-                    <li><a target="_blank" href="https://leetcode.com/problems/reorder-list/">Reorder List</a> (143) -
-                        Multi-step pattern ⭐⭐
+            <li><a target="_blank" href="https://leetcode.com/problems/remove-linked-list-elements/">Remove Linked List
+                    Elements</a>
+                (203) - Deletion</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/palindrome-linked-list/">Palindrome Linked
+                    List</a> (234) -
+                Reverse + compare</li>
+        </ol>
+        <h4 id="medium_4">Medium</h4>
+        <ol>
+            <li><a target="_blank" href="https://leetcode.com/problems/reorder-list/">Reorder List</a> (143) -
+                Multi-step pattern ⭐⭐
             </li>
             <li><a target="_blank" href="https://leetcode.com/problems/remove-nth-node-from-end-of-list/">Remove Nth
                     Node From End</a>
@@ -1899,15 +2105,15 @@ return dummy.next</code></pre>
             <li><a target="_blank" href="https://leetcode.com/problems/copy-list-with-random-pointer/">Copy List with
                     Random Pointer</a>
                 (138) - Deep copy ⭐⭐</li>
-                <li><a target="_blank" href="https://leetcode.com/problems/add-two-numbers/">Add Two Numbers</a> (2) - Carry
-                    simulation</li>
-                <li><a target="_blank" href="https://leetcode.com/problems/linked-list-cycle-ii/">Linked List Cycle II</a>
-                    (142) - Find
-                    cycle start</li>
-                <li><a target="_blank" href="https://leetcode.com/problems/rotate-list/">Rotate List</a> (61) - Circular
-                    technique</li>
-                <li><a target="_blank" href="https://leetcode.com/problems/lru-cache/">LRU Cache</a> (146) - Doubly linked +
-                    hash ⭐⭐⭐</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/add-two-numbers/">Add Two Numbers</a> (2) - Carry
+                simulation</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/linked-list-cycle-ii/">Linked List Cycle II</a>
+                (142) - Find
+                cycle start</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/rotate-list/">Rotate List</a> (61) - Circular
+                technique</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/lru-cache/">LRU Cache</a> (146) - Doubly linked +
+                hash ⭐⭐⭐</li>
             <li><a target="_blank" href="https://leetcode.com/problems/find-the-duplicate-number/">Find the Duplicate
             <li><a target="_blank" href="https://leetcode.com/problems/remove-duplicates-from-sorted-list-ii/">Remove
             <li><a target="_blank" href="https://leetcode.com/problems/partition-list/">Partition List</a> (86)</li>
@@ -1916,20 +2122,20 @@ return dummy.next</code></pre>
         <ol>
             <li><a target="_blank" href="https://leetcode.com/problems/reverse-nodes-in-k-group/">Reverse Nodes in
                     k-Group</a> (25) -
-                    Advanced reversal ⭐⭐⭐</li>
-                    <li><a target="_blank" href="https://leetcode.com/problems/merge-k-sorted-lists/">Merge k Sorted Lists</a>
-                        (23) - Divide
-                        &amp; conquer ⭐⭐</li>
-                    </ol>
-                    <hr />
-                    <h1 id="phase-3-optimization-math">PHASE 3: OPTIMIZATION &amp; MATH ⚡</h1>
-                    <h2 id="7-greedy">7. GREEDY ⚡</h2>
-                    <p><strong>Difficulty:</strong> <span style="color: green">★☆☆</span> | <strong>Optimization Pattern</strong>
-                    </p>
-                    <h3 id="core-concept_6">Core Concept</h3>
-                    <p>Make the locally optimal choice at each step with the hope of finding the global optimum. Unlike DP, you
-                        never look back or reconsider choices.</p>
-                    <h3 id="when-to-use_6">When to Use</h3>
+                Advanced reversal ⭐⭐⭐</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/merge-k-sorted-lists/">Merge k Sorted Lists</a>
+                (23) - Divide
+                &amp; conquer ⭐⭐</li>
+        </ol>
+        <hr />
+        <h1 id="phase-3-optimization-math">PHASE 3: SEARCHING & STACK 🔍</h1>
+        <h2 id="7-greedy">7. GREEDY ⚡</h2>
+        <p><strong>Difficulty:</strong> <span style="color: green">★☆☆</span> | <strong>Optimization Pattern</strong>
+        </p>
+        <h3 id="core-concept_6">Core Concept</h3>
+        <p>Make the locally optimal choice at each step with the hope of finding the global optimum. Unlike DP, you
+            never look back or reconsider choices.</p>
+        <h3 id="when-to-use_6">When to Use</h3>
         <ul>
             <li>✅ <strong>Optimization problems</strong> (min/max)</li>
             <li>✅ <strong>Activity selection/Interval scheduling</strong> (max events)</li>
@@ -1998,10 +2204,12 @@ return dummy.next</code></pre>
 </code></pre>
         <h3 id="common-traps_6">Common Traps 🚨</h3>
         <ul>
-            <li>❌ <strong>False Greedy</strong>: Always prove greedy works (usually by induction). If picking 'largest now'
+            <li>❌ <strong>False Greedy</strong>: Always prove greedy works (usually by induction). If picking 'largest
+                now'
                 limits future options in a bad way, use DP.</li>
             <li>❌ <strong>Sorting Key</strong>: Sorting by start vs. end time changes everything.</li>
-            <li>❌ <strong>Local vs Global</strong>: Greedy fails for "Coin Change" with general coins (requires DP), but works
+            <li>❌ <strong>Local vs Global</strong>: Greedy fails for "Coin Change" with general coins (requires DP), but
+                works
                 for US coins.</li>
         </ul>
         <h3 id="decision-tree">Decision Tree</h3>
@@ -2033,18 +2241,19 @@ return dummy.next</code></pre>
                 variant ⭐</li>
             <li><a target="_blank" href="https://leetcode.com/problems/valid-parenthesis-string/">Valid Parenthesis
                     String</a> (678) -
-                    Min/Max open tracking</li>
-                    <li><a target="_blank" href="https://leetcode.com/problems/merge-triplets-to-target/">Merge Triplets to Target</a>
-                        (1899)</li>
-                            </ol>
-                            <hr />
-                            <h2 id="8-intervals">8. INTERVALS 📊</h2>
-                            <p><strong>Difficulty:</strong> <span style="color: orange">★★☆</span> | <strong>Sorting &amp; Geometry</strong>
-                            </p>
-                            <h3 id="core-concept_7">Core Concept</h3>
-                            <p>Handling overlapping or merging time ranges. Almost always requires sorting by start time first to linearize
-                                the problem.</p>
-                            <h3 id="when-to-use_7">When to Use</h3>
+                Min/Max open tracking</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/merge-triplets-to-target/">Merge Triplets to
+                    Target</a>
+                (1899)</li>
+        </ol>
+        <hr />
+        <h2 id="8-intervals">8. INTERVALS 📊</h2>
+        <p><strong>Difficulty:</strong> <span style="color: orange">★★☆</span> | <strong>Sorting &amp; Geometry</strong>
+        </p>
+        <h3 id="core-concept_7">Core Concept</h3>
+        <p>Handling overlapping or merging time ranges. Almost always requires sorting by start time first to linearize
+            the problem.</p>
+        <h3 id="when-to-use_7">When to Use</h3>
         <ul>
             <li>✅ <strong>Merging ranges</strong></li>
             <li>✅ <strong>Inserting into sorted intervals</strong></li>
@@ -2107,7 +2316,8 @@ return dummy.next</code></pre>
         <p><strong>Time:</strong> O(N log N) | <strong>Space:</strong> O(N)</p>
         <h3 id="common-traps_7">Common Traps 🚨</h3>
         <ul>
-            <li>❌ <strong>Edge Cases</strong>: <code>[1,2]</code> and <code>[2,3]</code> - do they touch or overlap? (Usually
+            <li>❌ <strong>Edge Cases</strong>: <code>[1,2]</code> and <code>[2,3]</code> - do they touch or overlap?
+                (Usually
                 touch = merge).</li>
             <li>❌ <strong>Unsorted Input</strong>: Always sort first unless specified.</li>
             <li>❌ <strong>Modifying list while iterating</strong>: Create a new <code>merged</code> list result.</li>
@@ -2136,28 +2346,36 @@ return dummy.next</code></pre>
                 Sorting ⭐⭐</li>
             <li><a target="_blank" href="https://leetcode.com/problems/non-overlapping-intervals/">Non-overlapping
                     Intervals</a> (435) -
-                    Greedy removal</li>
-                    <li><a target="_blank" href="https://leetcode.com/problems/meeting-rooms-ii/">Meeting Rooms II</a> (253) -
-                        Sweep line ⭐⭐
+                Greedy removal</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/meeting-rooms-ii/">Meeting Rooms II</a> (253) -
+                Sweep line ⭐⭐
             </li>
             <li><a target="_blank"
                     href="https://leetcode.com/problems/minimum-number-of-arrows-to-burst-balloons/">Minimum Number of
                     Arrows to Burst Balloons</a> (452) - Intersection</li>
             <li><a target="_blank" href="https://leetcode.com/problems/minimum-interval-to-include-each-query/">Minimum
                     Interval to Include Each Query</a> (1851)</li>
-                    </ol>
-                    <hr />
-                    <h2 id="9-bit-manipulation">9. BIT MANIPULATION 🔢</h2>
-                    <p><strong>Difficulty:</strong> <span style="color: orange">★★☆</span> | <strong>Arithmetic Hacks</strong></p>
-                    <h3 id="core-concept_8">Core Concept</h3>
-                    <p>Manipulate integers at the binary level. XOR is the king of bit manipulation problems.</p>
-                    <h3 id="key-operators">Key Operators</h3>
+        </ol>
+        <hr />
+        <h2 id="9-bit-manipulation">9. BIT MANIPULATION 🔢</h2>
+        <p><strong>Difficulty:</strong> <span style="color: orange">★★☆</span> | <strong>Arithmetic Hacks</strong></p>
+        <h3 id="core-concept_8">Core Concept</h3>
+        <p>Manipulate integers at the binary level. XOR is the king of bit manipulation problems.</p>
+        <h3 id="key-operators">Key Operators</h3>
         <ul>
             <li><code>&amp;</code> (AND): Both 1</li>
             <li><code>|</code> (OR): Either 1</li>
             <li><code>^</code> (XOR): Different bits (1 if different, 0 if same)</li>
             <li><code>~</code> (NOT): Invert</li>
             <li><code>&lt;&lt;</code>, <code>&gt;&gt;</code>: Shift</li>
+        </ul>
+        <h3 id="when-to-use_bits">When to Use</h3>
+        <ul>
+            <li>✅ <strong>Find unique/missing element</strong> (XOR cancels duplicates)</li>
+            <li>✅ <strong>Count set bits</strong> (Brian Kernighan's algorithm)</li>
+            <li>✅ <strong>Power of 2 checks</strong> (n & (n-1) == 0)</li>
+            <li>✅ <strong>Subset representation</strong> (bitmask DP)</li>
+            <li><strong>Signal Words:</strong> "single number", "power of two", "bit", "XOR"</li>
         </ul>
         <h3 id="sub-patterns_8">Sub-Patterns</h3>
         <h4 id="91-xor-property-a-a-0">9.1 XOR Property (a ^ a = 0)</h4>
@@ -2194,10 +2412,12 @@ return dummy.next</code></pre>
         </code></pre>
         <h3 id="common-traps_8">Common Traps 🚨</h3>
         <ul>
-            <li>❌ <strong>Operator Precedence</strong>: <code>a &amp; b == 0</code> evaluates as <code>a &amp; (b == 0)</code>.
+            <li>❌ <strong>Operator Precedence</strong>: <code>a &amp; b == 0</code> evaluates as
+                <code>a &amp; (b == 0)</code>.
                 <strong>ALWAYS use parentheses</strong>: <code>(a &amp; b) == 0</code>.
             </li>
-            <li>❌ <strong>Negative Numbers</strong>: Python handles large integers and infinite leading 1s for negatives. Be
+            <li>❌ <strong>Negative Numbers</strong>: Python handles large integers and infinite leading 1s for
+                negatives. Be
                 careful using <code>~</code> or checks.</li>
             <li>❌ <strong>Overflow</strong>: Python auto-promotes to long, but in Java/C++ checked for MAX_INT.</li>
         </ul>
@@ -2231,10 +2451,11 @@ return dummy.next</code></pre>
             <li><a target="_blank" href="https://leetcode.com/problems/sum-of-two-integers/">Sum of Two Integers</a>
                 (371) - Adder
                 simulation</li>
-                <li><a target="_blank" href="https://leetcode.com/problems/reverse-integer/">Reverse Integer</a> (7) -
-                    Overflow check</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/reverse-integer/">Reverse Integer</a> (7) -
+                Overflow check</li>
             <li><a target="_blank" href="https://leetcode.com/problems/single-number-ii/">Single Number II</a> (137)
-            <li><a target="_blank" href="https://leetcode.com/problems/bitwise-and-of-numbers-range/">Bitwise AND of Numbers
+            <li><a target="_blank" href="https://leetcode.com/problems/bitwise-and-of-numbers-range/">Bitwise AND of
+                    Numbers
                     Range</a> (201)</li>
         </ol>
         <hr />
@@ -2242,6 +2463,14 @@ return dummy.next</code></pre>
         <p><strong>Difficulty:</strong> <span style="color: orange">★★☆</span> | <strong>Logic &amp; Rules</strong></p>
         <h3 id="core-concept_9">Core Concept</h3>
         <p>Using mathematical properties (modulo, powers, GCD) or matrix coordinates to solve problems efficiently.</p>
+        <h3 id="when-to-use_9">When to Use</h3>
+        <ul>
+            <li>✅ <strong>Matrix manipulation</strong> (rotate, spiral traversal)</li>
+            <li>✅ <strong>Number theory</strong> (primes, GCD, modular arithmetic)</li>
+            <li>✅ <strong>Geometry</strong> (distance, area, line intersections)</li>
+            <li>✅ <strong>Probability/Random</strong> (weighted selection, reservoir sampling)</li>
+            <li><strong>Signal Words:</strong> "matrix", "rotate", "power", "prime", "random"</li>
+        </ul>
         <h3 id="sub-patterns_9">Sub-Patterns</h3>
         <h4 id="101-matrix-traversal">10.1 Matrix Traversal</h4>
         <p><strong>Use Case:</strong> Spiral matrix, Rotate image</p>
@@ -2276,6 +2505,13 @@ return dummy.next</code></pre>
             res = helper(x, abs(n))
             return res if n &gt;= 0 else 1 / res
 </code></pre>
+        <h3 id="common-traps-math">Common Traps 🚨</h3>
+        <ul>
+            <li>❌ <strong>Integer overflow</strong>: Use modulo for large results (10^9+7)</li>
+            <li>❌ <strong>Floating point precision</strong>: Use epsilon for comparisons</li>
+            <li>❌ <strong>Negative modulo</strong>: Python handles it, but (a % m + m) % m is safer</li>
+            <li>❌ <strong>Edge cases</strong>: n=0 for power, empty matrix, division by zero</li>
+        </ul>
         <h3 id="decision-tree">Decision Tree</h3>
         <pre>
         Problem involves...
@@ -2294,8 +2530,10 @@ return dummy.next</code></pre>
                 detection (Set/F-S)
             </li>
             <li><a target="_blank" href="https://leetcode.com/problems/plus-one/">Plus One</a> (66)</li>
-            <li><a target="_blank" href="https://leetcode.com/problems/palindrome-number/">Palindrome Number</a> (9)</li>
-            <li><a target="_blank" href="https://leetcode.com/problems/factorial-trailing-zeroes/">Factorial Trailing Zeroes</a>
+            <li><a target="_blank" href="https://leetcode.com/problems/palindrome-number/">Palindrome Number</a> (9)
+            </li>
+            <li><a target="_blank" href="https://leetcode.com/problems/factorial-trailing-zeroes/">Factorial Trailing
+                    Zeroes</a>
                 (172)</li>
         </ol>
         <h4 id="medium_8">Medium</h4>
@@ -2316,14 +2554,17 @@ return dummy.next</code></pre>
             <li><a target="_blank" href="https://leetcode.com/problems/game-of-life/">Game of Life</a> (289)</li>
             <li><a target="_blank" href="https://leetcode.com/problems/random-pick-with-weight/">Random Pick with
                     Weight</a> (528) - Probability/Prefix Sum</li>
-            </ol>
-            <hr />
-            <h2 id="11-heap-priority-queue">11. HEAP / PRIORITY QUEUE 🏆</h2>
-            <p><strong>Difficulty:</strong> <span style="color: orange">★★☆</span> | <strong>Data Structure</strong></p>
-            <h3 id="core-concept_10">Core Concept</h3>
-            <p>A tree-based structure that maintains the min (or max) element at the root. Insert/Delete in O(log N), Peek
-                in O(1). Python's <code>heapq</code> is a Min-Heap by default.</p>
-            <h3 id="when-to-use_8">When to Use</h3>
+        </ol>
+        <hr />
+        <h2 id="11-heap-priority-queue">11. HEAP / PRIORITY QUEUE 🏆</h2>
+        <p><span style="background: #7c3aed; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8em;">📌
+                WEEK 4-6 (with Trees)</span> <strong>Difficulty:</strong> <span style="color: orange">★★☆</span> |
+            <strong>Tree-Based Structure</strong>
+        </p>
+        <h3 id="core-concept_10">Core Concept</h3>
+        <p>A tree-based structure that maintains the min (or max) element at the root. Insert/Delete in O(log N), Peek
+            in O(1). Python's <code>heapq</code> is a Min-Heap by default.</p>
+        <h3 id="when-to-use_8">When to Use</h3>
         <ul>
             <li>✅ <strong>Find top K elements</strong> (largest/smallest/frequent)</li>
             <li>✅ <strong>Merge K sorted structures</strong></li>
@@ -2355,7 +2596,8 @@ return dummy.next</code></pre>
             top of <code>small</code> (or avg of tops).</p>
         <h3 id="common-traps_9">Common Traps 🚨</h3>
         <ul>
-            <li>❌ <strong>Max Heap in Python</strong>: Python only has Min Heap. For Max Heap, <strong>negate</strong> numbers
+            <li>❌ <strong>Max Heap in Python</strong>: Python only has Min Heap. For Max Heap, <strong>negate</strong>
+                numbers
                 when pushing, negate back when popping.</li>
             <li>❌ <strong>Time Complexity</strong>: Heapify is O(N). Pushing N items is O(N log N).</li>
         </ul>
@@ -2377,30 +2619,30 @@ return dummy.next</code></pre>
             </li>
             <li><a target="_blank" href="https://leetcode.com/problems/kth-largest-element-in-a-stream/">Kth Largest
                     Element in a Stream</a> (703)</li>
-            </ol>
-            <h4 id="medium_9">Medium</h4>
-            <ol>
-                <li><a target="_blank" href="https://leetcode.com/problems/kth-largest-element-in-an-array/">Kth Largest
-                        Element in an
-                        Array</a> (215) - Selection/Heap ⭐</li>
-                <li><a target="_blank" href="https://leetcode.com/problems/task-scheduler/">Task Scheduler</a> (621) -
-                    Greedy + Heap</li>
-                <li><a target="_blank" href="https://leetcode.com/problems/design-twitter/">Design Twitter</a> (355) - Merge
-                    K sorted</li>
+        </ol>
+        <h4 id="medium_9">Medium</h4>
+        <ol>
+            <li><a target="_blank" href="https://leetcode.com/problems/kth-largest-element-in-an-array/">Kth Largest
+                    Element in an
+                    Array</a> (215) - Selection/Heap ⭐</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/task-scheduler/">Task Scheduler</a> (621) -
+                Greedy + Heap</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/design-twitter/">Design Twitter</a> (355) - Merge
+                K sorted</li>
             <li><a target="_blank" href="https://leetcode.com/problems/k-closest-points-to-origin/">K Closest Points to
                     Origin</a> (973)
             </li>
             <li><a target="_blank" href="https://leetcode.com/problems/find-k-pairs-with-smallest-sums/">Find K Pairs
                     with Smallest Sums</a> (373)</li>
-                    <li><a target="_blank" href="https://leetcode.com/problems/reorganize-string/">Reorganize String</a> (767) -
-                        Greedy Heap</li>
-                    <li><a target="_blank" href="https://leetcode.com/problems/top-k-frequent-words/">Top K Frequent Words</a>
-                        (692) - Trie + Heap</li>
-                    <li><a target="_blank" href="https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/">Kth
-                            Smallest Element in a Sorted Matrix</a> (378) - Binary Search on Answer / Heap</li>
-                    </ol>
-                    <h4 id="hard_4">Hard</h4>
-                    <ol>
+            <li><a target="_blank" href="https://leetcode.com/problems/reorganize-string/">Reorganize String</a> (767) -
+                Greedy Heap</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/top-k-frequent-words/">Top K Frequent Words</a>
+                (692) - Trie + Heap</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/kth-smallest-element-in-a-sorted-matrix/">Kth
+                    Smallest Element in a Sorted Matrix</a> (378) - Binary Search on Answer / Heap</li>
+        </ol>
+        <h4 id="hard_4">Hard</h4>
+        <ol>
             <li><a target="_blank" href="https://leetcode.com/problems/find-median-from-data-stream/">Find Median from
                     Data Stream</a>
                 (295) - Two heaps ⭐⭐</li>
@@ -2870,6 +3112,135 @@ return dummy.next</code></pre>
         │ └─ From Pre/In-order? → Root is first in Pre
         └─ Serialization? → Encode structure
         </pre>
+        <h4 id="126-serialization-deserialization">12.6 Serialization/Deserialization</h4>
+        <p><strong>Use Case:</strong> Convert tree to string and back (CRITICAL for Meta/Amazon)</p>
+        <pre><code class="language-python">def serialize(root):
+    """
+    PREORDER with None markers
+    Serialize: root -> left -> right with 'null' for None
+    """
+    if not root:
+        return "null,"
+
+    return str(root.val) + "," + serialize(root.left) + serialize(root.right)
+
+def deserialize(data):
+    """
+    Rebuild tree from serialized string
+    Use iterator to process values in order
+    """
+    def helper():
+        val = next(vals)
+        if val == "null":
+            return None
+
+        node = TreeNode(int(val))
+        node.left = helper()
+        node.right = helper()
+        return node
+
+    vals = iter(data.split(','))
+    return helper()
+
+# Level-order alternative (BFS approach)
+from collections import deque
+
+def serialize_bfs(root):
+    if not root:
+        return ""
+
+    result = []
+    queue = deque([root])
+
+    while queue:
+        node = queue.popleft()
+        if node:
+            result.append(str(node.val))
+            queue.append(node.left)
+            queue.append(node.right)
+        else:
+            result.append("null")
+
+    return ",".join(result)
+</code></pre>
+        <p><strong>Time:</strong> O(n) | <strong>Space:</strong> O(n)</p>
+        <h4 id="127-morris-traversal">12.7 Morris Traversal (O(1) Space)</h4>
+        <p><strong>Use Case:</strong> Traverse without recursion or stack (ADVANCED - Google L5+)</p>
+        <pre><code class="language-python">def morris_inorder(root):
+    """
+    MORRIS TRAVERSAL - O(1) space using threading
+
+    KEY INSIGHT: Use right pointers of leaves to thread back
+    1. If no left child, visit and go right
+    2. If left child exists:
+       - Find inorder predecessor
+       - If predecessor's right is None, create thread
+       - If predecessor's right points back, remove thread and visit
+    """
+    curr = root
+    result = []
+
+    while curr:
+        if not curr.left:
+            # No left subtree - visit and go right
+            result.append(curr.val)
+            curr = curr.right
+        else:
+            # Find inorder predecessor (rightmost in left subtree)
+            pred = curr.left
+            while pred.right and pred.right != curr:
+                pred = pred.right
+
+            if not pred.right:
+                # Create thread: predecessor points to current
+                pred.right = curr
+                curr = curr.left
+            else:
+                # Thread exists: remove it, visit current, go right
+                pred.right = None
+                result.append(curr.val)
+                curr = curr.right
+
+    return result
+
+def recover_bst(root):
+    """
+    RECOVER BST - Two nodes swapped, use Morris to find them
+    Uses O(1) space with Morris traversal
+    """
+    first = second = prev = None
+    curr = root
+
+    while curr:
+        if not curr.left:
+            # Visit
+            if prev and prev.val &gt; curr.val:
+                if not first:
+                    first = prev
+                second = curr
+            prev = curr
+            curr = curr.right
+        else:
+            pred = curr.left
+            while pred.right and pred.right != curr:
+                pred = pred.right
+
+            if not pred.right:
+                pred.right = curr
+                curr = curr.left
+            else:
+                pred.right = None
+                if prev and prev.val &gt; curr.val:
+                    if not first:
+                        first = prev
+                    second = curr
+                prev = curr
+                curr = curr.right
+
+    # Swap values to fix BST
+    first.val, second.val = second.val, first.val
+</code></pre>
+        <p><strong>Time:</strong> O(n) | <strong>Space:</strong> O(1) - no recursion stack!</p>
         <h3 id="must-know-problems_11">Must-Know Problems</h3>
         <h4 id="easy_8">Easy</h4>
         <ol>
@@ -2881,20 +3252,20 @@ return dummy.next</code></pre>
             <li><a target="_blank" href="https://leetcode.com/problems/balanced-binary-tree/">Balanced Binary Tree</a>
                 (110) - Height
                 check</li>
-                <li><a target="_blank" href="https://leetcode.com/problems/path-sum/">Path Sum</a> (112) - DFS path</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/path-sum/">Path Sum</a> (112) - DFS path</li>
             <li><a target="_blank" href="https://leetcode.com/problems/average-of-levels-in-binary-tree/">Average of
                     Levels in Binary Tree</a> (637)</li>
             <li><a target="_blank" href="https://leetcode.com/problems/minimum-absolute-difference-in-bst/">Minimum
                     Absolute Difference in BST</a> (530)</li>
-                    </ol>
-                    <h4 id="medium_10">Medium</h4>
-                    <ol>
+        </ol>
+        <h4 id="medium_10">Medium</h4>
+        <ol>
             <li><a target="_blank" href="https://leetcode.com/problems/diameter-of-binary-tree/">Diameter of Binary
                     Tree</a> (543) -
-                    Bottom-up ⭐</li>
-                    <li><a target="_blank" href="https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/">Lowest
-                            Common
-                            Ancestor</a> (236) - LCA template ⭐⭐</li>
+                Bottom-up ⭐</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/">Lowest
+                    Common
+                    Ancestor</a> (236) - LCA template ⭐⭐</li>
             <li><a target="_blank"
                     href="https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/">Lowest Common
                     Ancestor of a Binary Search Tree</a> (235)</li>
@@ -2925,19 +3296,19 @@ return dummy.next</code></pre>
                     Numbers</a> (129)</li>
             <li><a target="_blank" href="https://leetcode.com/problems/count-complete-tree-nodes/">Count Complete Tree
                     Nodes</a> (222)</li>
-                    <li><a target="_blank" href="https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/">Binary
-                            Tree Zigzag Level Order Traversal</a> (103)</li>
-                    </ol>
-                    <h4 id="hard_5">Hard</h4>
-                    <ol>
-                        <li><a target="_blank" href="https://leetcode.com/problems/binary-tree-maximum-path-sum/">Binary Tree
-                                Maximum Path Sum</a>
-                            (124) - Global max ⭐⭐⭐</li>
-                        <li><a target="_blank" href="https://leetcode.com/problems/serialize-and-deserialize-binary-tree/">Serialize
-                                and Deserialize
-                                Binary Tree</a> (297) - Encoding ⭐⭐</li>
-                    </ol>
-                    <hr />
+            <li><a target="_blank" href="https://leetcode.com/problems/binary-tree-zigzag-level-order-traversal/">Binary
+                    Tree Zigzag Level Order Traversal</a> (103)</li>
+        </ol>
+        <h4 id="hard_5">Hard</h4>
+        <ol>
+            <li><a target="_blank" href="https://leetcode.com/problems/binary-tree-maximum-path-sum/">Binary Tree
+                    Maximum Path Sum</a>
+                (124) - Global max ⭐⭐⭐</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/serialize-and-deserialize-binary-tree/">Serialize
+                    and Deserialize
+                    Binary Tree</a> (297) - Encoding ⭐⭐</li>
+        </ol>
+        <hr />
 
         <hr />
         <h2 id="13-tries-">13. TRIES 📝 </h2>
@@ -2990,12 +3361,12 @@ return dummy.next</code></pre>
         ├─ Word Search II (Grid)? → Trie + DFS
         └─ Max XOR pair? → Bitwise Trie
         </pre>
-        <p><strong>Common Pitfalls:</strong></p>
+        <h3 id="common-traps-tries">Common Traps 🚨</h3>
         <ul>
-            <li>Case sensitivity</li>
-            <li>Empty word</li>
-            <li>Memory usage</li>
-            <li>Deletion</li>
+            <li>❌ <strong>Case sensitivity</strong>: Decide lowercase vs mixed case upfront</li>
+            <li>❌ <strong>Empty string</strong>: Handle empty word insertion/search separately</li>
+            <li>❌ <strong>Memory usage</strong>: Each node has 26+ children pointers (use HashMap for sparse)</li>
+            <li>❌ <strong>Deletion complexity</strong>: Need to clean up empty branches after delete</li>
         </ul>
         <h3 id="must-know-problems_13">Must-Know Problems</h3>
         <h4 id="medium_13">Medium</h4>
@@ -3003,7 +3374,8 @@ return dummy.next</code></pre>
             <li><a target="_blank" href="https://leetcode.com/problems/implement-trie-prefix-tree/">Implement Trie
                     (Prefix Tree)</a>
                 (208)</li>
-            <li><a target="_blank" href="https://leetcode.com/problems/design-add-and-search-words-data-structure/">Design Add and
+            <li><a target="_blank"
+                    href="https://leetcode.com/problems/design-add-and-search-words-data-structure/">Design Add and
                     Search Words Data Structure</a> (211)</li>
         </ol>
         <h4 id="hard_11">Hard</h4>
@@ -3013,6 +3385,9 @@ return dummy.next</code></pre>
 
         <hr />
         <h2 id="14-backtracking-">14. BACKTRACKING 🔄 </h2>
+        <p><span style="background: #dc2626; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.8em;">📌
+                WEEK 6-8 (after Graphs - uses DFS)</span> <strong>Difficulty:</strong> <span
+                style="color: red">★★★</span></p>
         <h3 id="when-to-use-13">When to Use </h3>
         <ul>
             <li>Generate combinations/permutations</li>
@@ -3092,12 +3467,12 @@ return dummy.next</code></pre>
             <li><a target="_blank" href="https://leetcode.com/problems/combinations/">Combinations</a> (77)</li>
             <li><a target="_blank" href="https://leetcode.com/problems/restore-ip-addresses/">Restore IP Addresses</a>
                 (93) - Partitioning String</li>
-            </ol>
-            <h4 id="hard_10">Hard</h4>
-            <ol>
-                <li><a target="_blank" href="https://leetcode.com/problems/n-queens/">N-Queens</a> (51)</li>
-                <li><a target="_blank" href="https://leetcode.com/problems/n-queens-ii/">N-Queens II</a> (52)</li>
-            </ol>
+        </ol>
+        <h4 id="hard_10">Hard</h4>
+        <ol>
+            <li><a target="_blank" href="https://leetcode.com/problems/n-queens/">N-Queens</a> (51)</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/n-queens-ii/">N-Queens II</a> (52)</li>
+        </ol>
 
         <hr />
         <h1 id="phase-5-graph-mastery">PHASE 5: GRAPH MASTERY 🌐</h1>
@@ -3115,12 +3490,12 @@ return dummy.next</code></pre>
         </ul>
         <ul>
             <li>✅ Cycle detection, topological sort</li>
-            </ul>
-            <ul>
-                <li>✅ Network flow, dependency resolution</li>
-            </ul>
-            <ul>
-                <li>✅ Matrix traversal (grid graphs)</li>
+        </ul>
+        <ul>
+            <li>✅ Network flow, dependency resolution</li>
+        </ul>
+        <ul>
+            <li>✅ Matrix traversal (grid graphs)</li>
         </ul>
         <p>- **Signal Words:** "connected", "path", "network", "dependencies", "prerequisites", "islands"</p>
         <h3 id="graph-representations">Graph Representations</h3>
@@ -3662,7 +4037,147 @@ return dummy.next</code></pre>
             return -1
 </code></pre>
         <p>**Time:** O((V + E) log V) | **Space:** O(V)</p>
-        <h4 id="156-matrix/grid-as-graph">15.6 Matrix/Grid as Graph</h4>
+        <h4 id="156-bellman-ford">15.6 Bellman-Ford Algorithm (Negative Weights)</h4>
+        <p><strong>Use Case:</strong> Shortest path with negative weights, detect negative cycles</p>
+        <pre><code class="language-python">def bellman_ford(graph, n, src):
+    """
+    BELLMAN-FORD ALGORITHM
+    When Dijkstra fails: handles NEGATIVE edge weights
+
+    KEY INSIGHT:
+    - Relax all edges n-1 times
+    - If any edge can still be relaxed, negative cycle exists
+
+    Time: O(V * E) - slower than Dijkstra but handles negatives
+    """
+    dist = [float('inf')] * n
+    dist[src] = 0
+
+    # Relax all edges n-1 times
+    for _ in range(n - 1):
+        for u in range(n):
+            for v, weight in graph[u]:
+                if dist[u] != float('inf') and dist[u] + weight &lt; dist[v]:
+                    dist[v] = dist[u] + weight
+
+    # Check for negative cycle
+    for u in range(n):
+        for v, weight in graph[u]:
+            if dist[u] != float('inf') and dist[u] + weight &lt; dist[v]:
+                return None  # Negative cycle detected!
+
+    return dist
+
+def cheapest_flights_bellman(n, flights, src, dst, k):
+    """
+    Cheapest Flights Within K Stops (787)
+    Modified Bellman-Ford: limit iterations to k+1
+    """
+    dist = [float('inf')] * n
+    dist[src] = 0
+
+    # Only k+1 relaxations (k stops = k+1 edges)
+    for _ in range(k + 1):
+        temp = dist[:]  # Use previous iteration's values
+        for u, v, price in flights:
+            if dist[u] != float('inf'):
+                temp[v] = min(temp[v], dist[u] + price)
+        dist = temp
+
+    return dist[dst] if dist[dst] != float('inf') else -1
+</code></pre>
+        <p><strong>Time:</strong> O(V × E) | <strong>Space:</strong> O(V)</p>
+        <h4 id="157-tarjans-algorithm">15.7 Tarjan's Algorithm (Strongly Connected Components)</h4>
+        <p><strong>Use Case:</strong> Find SCCs, articulation points, bridges (ADVANCED - Google L5+)</p>
+        <pre><code class="language-python">def critical_connections(n, connections):
+    """
+    Critical Connections in a Network (1192) - BRIDGES
+    Find all edges whose removal disconnects the graph
+
+    TARJAN'S KEY CONCEPTS:
+    - disc[]: Discovery time of each node
+    - low[]: Lowest discovery time reachable
+    - Bridge condition: low[v] &gt; disc[u] (can't reach back)
+    """
+    graph = defaultdict(list)
+    for u, v in connections:
+        graph[u].append(v)
+        graph[v].append(u)
+
+    disc = [-1] * n
+    low = [0] * n
+    bridges = []
+    time = [0]  # Mutable for nested function
+
+    def dfs(u, parent):
+        disc[u] = low[u] = time[0]
+        time[0] += 1
+
+        for v in graph[u]:
+            if v == parent:
+                continue
+
+            if disc[v] == -1:  # Not visited
+                dfs(v, u)
+                low[u] = min(low[u], low[v])
+
+                # Bridge condition: v can't reach back to u or earlier
+                if low[v] &gt; disc[u]:
+                    bridges.append([u, v])
+            else:
+                # Back edge: update low-link
+                low[u] = min(low[u], disc[v])
+
+    for i in range(n):
+        if disc[i] == -1:
+            dfs(i, -1)
+
+    return bridges
+
+def find_articulation_points(n, edges):
+    """
+    Find vertices whose removal disconnects graph
+    Similar to bridges but check: low[v] &gt;= disc[u]
+    """
+    graph = defaultdict(list)
+    for u, v in edges:
+        graph[u].append(v)
+        graph[v].append(u)
+
+    disc = [-1] * n
+    low = [0] * n
+    parent = [-1] * n
+    ap = set()
+    time = [0]
+
+    def dfs(u):
+        children = 0
+        disc[u] = low[u] = time[0]
+        time[0] += 1
+
+        for v in graph[u]:
+            if disc[v] == -1:
+                children += 1
+                parent[v] = u
+                dfs(v)
+                low[u] = min(low[u], low[v])
+
+                # Articulation point conditions
+                if parent[u] == -1 and children &gt; 1:
+                    ap.add(u)  # Root with 2+ children
+                if parent[u] != -1 and low[v] &gt;= disc[u]:
+                    ap.add(u)  # Non-root: child can't reach up
+            elif v != parent[u]:
+                low[u] = min(low[u], disc[v])
+
+    for i in range(n):
+        if disc[i] == -1:
+            dfs(i)
+
+    return list(ap)
+</code></pre>
+        <p><strong>Time:</strong> O(V + E) | <strong>Space:</strong> O(V)</p>
+        <h4 id="158-matrix/grid-as-graph">15.8 Matrix/Grid as Graph</h4>
         <pre><code class="language-python">
         def num_islands(grid):
             """
@@ -3867,20 +4382,20 @@ return dummy.next</code></pre>
             <li><a target="_blank" href="https://leetcode.com/problems/max-area-of-island/">Max Area of Island</a> (695)
                 - DFS with
                 count</li>
-                <li><a target="_blank" href="https://leetcode.com/problems/surrounded-regions/">Surrounded Regions</a> (130)
-                    - Border DFS ⭐
+            <li><a target="_blank" href="https://leetcode.com/problems/surrounded-regions/">Surrounded Regions</a> (130)
+                - Border DFS ⭐
             </li>
             <li><a target="_blank" href="https://leetcode.com/problems/pacific-atlantic-water-flow/">Pacific Atlantic
                     Water Flow</a>
                 (417) - Reverse thinking ⭐⭐</li>
-                <li><a target="_blank" href="https://leetcode.com/problems/course-schedule/">Course Schedule</a> (207) -
-                    Cycle detection ⭐⭐
+            <li><a target="_blank" href="https://leetcode.com/problems/course-schedule/">Course Schedule</a> (207) -
+                Cycle detection ⭐⭐
             </li>
             <li><a target="_blank" href="https://leetcode.com/problems/course-schedule-ii/">Course Schedule II</a> (210)
                 - Topological
                 sort ⭐⭐</li>
-                <li><a target="_blank" href="https://leetcode.com/problems/rotting-oranges/">Rotting Oranges</a> (994) -
-                    Multi-source BFS ⭐
+            <li><a target="_blank" href="https://leetcode.com/problems/rotting-oranges/">Rotting Oranges</a> (994) -
+                Multi-source BFS ⭐
             </li>
             <li><a target="_blank" href="https://leetcode.com/problems/redundant-connection/">Redundant Connection</a>
                 (684) -
@@ -3889,20 +4404,20 @@ return dummy.next</code></pre>
                     href="https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/">Number
                     of
                     Connected Components</a> (323) - Components</li>
-                    <li><a target="_blank" href="https://leetcode.com/problems/graph-valid-tree/">Graph Valid Tree</a> (261) -
-                        Cycle +
-                        connectivity</li>
-                    <li><a target="_blank" href="https://leetcode.com/problems/network-delay-time/">Network Delay Time</a> (743)
-                        - Dijkstra ⭐⭐
-                    </li>
-                    <li><a target="_blank" href="https://leetcode.com/problems/cheapest-flights-within-k-stops/">Cheapest
-                            Flights Within K
-                            Stops</a> (787) - Modified Dijkstra ⭐⭐</li>
-                    <li><a target="_blank" href="https://leetcode.com/problems/min-cost-to-connect-all-points/">Min Cost to
-                            Connect All
-                            Points</a> (1584)</li>
-                    <li><a target="_blank" href="https://leetcode.com/problems/walls-and-gates/">Walls and Gates</a> (286)</li>
-                    <li><a target="_blank" href="https://leetcode.com/problems/snakes-and-ladders/">Snakes and Ladders</a> (909)
+            <li><a target="_blank" href="https://leetcode.com/problems/graph-valid-tree/">Graph Valid Tree</a> (261) -
+                Cycle +
+                connectivity</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/network-delay-time/">Network Delay Time</a> (743)
+                - Dijkstra ⭐⭐
+            </li>
+            <li><a target="_blank" href="https://leetcode.com/problems/cheapest-flights-within-k-stops/">Cheapest
+                    Flights Within K
+                    Stops</a> (787) - Modified Dijkstra ⭐⭐</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/min-cost-to-connect-all-points/">Min Cost to
+                    Connect All
+                    Points</a> (1584)</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/walls-and-gates/">Walls and Gates</a> (286)</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/snakes-and-ladders/">Snakes and Ladders</a> (909)
             </li>
             <li><a target="_blank" href="https://leetcode.com/problems/evaluate-division/">Evaluate Division</a> (399)
             </li>
@@ -3915,23 +4430,26 @@ return dummy.next</code></pre>
                     Binary Matrix</a> (1091) - BFS Level Order</li>
             <li><a target="_blank" href="https://leetcode.com/problems/all-nodes-distance-k-in-binary-tree/">All Nodes
                     Distance K in Binary Tree</a> (863) - Graph BFS conversion</li>
-            </ol>
+        </ol>
 
-            <h4 id="hard">Hard</h4>
-            <ol>
-                <li><a target="_blank" href="https://leetcode.com/problems/word-ladder/">Word Ladder</a> (127) - BFS on word
-                    graph ⭐⭐⭐</li>
-                <li><a target="_blank" href="https://leetcode.com/problems/alien-dictionary/">Alien Dictionary</a> (269) -
-                    Topological Sort ⭐⭐⭐</li>
-                <li><a target="_blank" href="https://leetcode.com/problems/swim-in-rising-water/">Swim in Rising Water</a>
-                    (778) - Binary
-                    search + BFS</li>
+        <h4 id="hard">Hard</h4>
+        <ol>
+            <li><a target="_blank" href="https://leetcode.com/problems/word-ladder/">Word Ladder</a> (127) - BFS on word
+                graph ⭐⭐⭐</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/alien-dictionary/">Alien Dictionary</a> (269) -
+                Topological Sort ⭐⭐⭐</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/swim-in-rising-water/">Swim in Rising Water</a>
+                (778) - Binary
+                search + BFS</li>
             <li><a target="_blank" href="https://leetcode.com/problems/reconstruct-itinerary/">Reconstruct Itinerary</a>
                 (332)</li>
         </ol>
         <hr />
         <h1 id="phase-6-advanced-algorithms">PHASE 6: ADVANCED ALGORITHMS 💎</h1>
         <h2 id="16-dynamic-programming-">16. DYNAMIC PROGRAMMING 💎 </h2>
+        <p><span style="background: #f59e0b; color: black; padding: 2px 8px; border-radius: 4px; font-size: 0.8em;">⚠️
+                WEEK 9-11 (Requires recursion mastery from Trees!)</span> <strong>Difficulty:</strong> <span
+                style="color: red">★★★</span></p>
         <h3 id="when-to-use-15">When to Use </h3>
         <ul>
             <li>Overlapping subproblems + optimal structure</li>
@@ -3972,6 +4490,135 @@ return dummy.next</code></pre>
                 dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token builtin">max</span><span class="token punctuation">(</span>dp<span class="token punctuation">[</span>i<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token punctuation">]</span><span class="token punctuation">,</span> dp<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">[</span>j<span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
     <span class="token keyword keyword-return">return</span> dp<span class="token punctuation">[</span>m<span class="token punctuation">]</span><span class="token punctuation">[</span>n<span class="token punctuation">]</span>
 </code></pre>
+        <h4 id="163-dp-on-trees">16.3 DP on Trees</h4>
+        <p><strong>Use Case:</strong> Optimize decisions on tree structures (House Robber III pattern)</p>
+        <pre><code class="language-python">def rob_tree(root):
+    """
+    HOUSE ROBBER III - DP ON TREES
+    Can't rob two adjacent nodes (parent-child)
+
+    KEY INSIGHT: Each node returns tuple (rob_this, skip_this)
+    - rob_this: max money if we rob this node
+    - skip_this: max money if we skip this node
+    """
+    def dfs(node):
+        if not node:
+            return (0, 0)  # (rob, skip)
+
+        left = dfs(node.left)
+        right = dfs(node.right)
+
+        # If we rob this node, we can't rob children
+        rob = node.val + left[1] + right[1]
+
+        # If we skip this node, take max of each child
+        skip = max(left) + max(right)
+
+        return (rob, skip)
+
+    return max(dfs(root))
+
+def binary_tree_cameras(root):
+    """
+    BINARY TREE CAMERAS (968) - Greedy on Trees
+    Minimum cameras to monitor all nodes
+
+    State: 0 = needs camera, 1 = has camera, 2 = covered
+    """
+    cameras = [0]
+
+    def dfs(node):
+        if not node:
+            return 2  # Null nodes are covered
+
+        left = dfs(node.left)
+        right = dfs(node.right)
+
+        # If any child needs camera, install here
+        if left == 0 or right == 0:
+            cameras[0] += 1
+            return 1  # This node has camera
+
+        # If any child has camera, this is covered
+        if left == 1 or right == 1:
+            return 2  # Covered by child
+
+        # Both children covered, this needs camera from parent
+        return 0
+
+    # Root might need camera if returned 0
+    if dfs(root) == 0:
+        cameras[0] += 1
+
+    return cameras[0]
+</code></pre>
+        <p><strong>Time:</strong> O(n) | <strong>Space:</strong> O(h) for recursion</p>
+        <h4 id="164-bitmask-dp">16.4 Bitmask DP</h4>
+        <p><strong>Use Case:</strong> Track subset states efficiently (TSP, subset problems)</p>
+        <pre><code class="language-python">def traveling_salesman(dist, n):
+    """
+    TRAVELING SALESMAN with Bitmask DP
+    Visit all cities exactly once, return to start with minimum cost
+
+    KEY INSIGHT: Use bitmask to represent visited cities
+    - mask = 0b1010 means cities 1 and 3 are visited
+    - O(n² × 2^n) time - exponential but better than O(n!)
+    """
+    memo = {}
+
+    def dp(mask, pos):
+        # All cities visited
+        if mask == (1 &lt;&lt; n) - 1:
+            return dist[pos][0]  # Return to start
+
+        if (mask, pos) in memo:
+            return memo[(mask, pos)]
+
+        ans = float('inf')
+        for city in range(n):
+            # If city not visited
+            if not (mask &amp; (1 &lt;&lt; city)):
+                new_mask = mask | (1 &lt;&lt; city)
+                ans = min(ans, dist[pos][city] + dp(new_mask, city))
+
+        memo[(mask, pos)] = ans
+        return ans
+
+    return dp(1, 0)  # Start at city 0, mask = 1 (city 0 visited)
+
+def shortest_path_all_nodes(graph):
+    """
+    Shortest Path Visiting All Nodes (847)
+    BFS with bitmask state
+    """
+    from collections import deque
+    n = len(graph)
+    target = (1 &lt;&lt; n) - 1  # All nodes visited
+
+    # Start from every node
+    queue = deque()
+    visited = set()
+
+    for i in range(n):
+        mask = 1 &lt;&lt; i
+        queue.append((i, mask, 0))  # (node, visited_mask, distance)
+        visited.add((i, mask))
+
+    while queue:
+        node, mask, dist = queue.popleft()
+
+        if mask == target:
+            return dist
+
+        for neighbor in graph[node]:
+            new_mask = mask | (1 &lt;&lt; neighbor)
+            if (neighbor, new_mask) not in visited:
+                visited.add((neighbor, new_mask))
+                queue.append((neighbor, new_mask, dist + 1))
+
+    return -1
+</code></pre>
+        <p><strong>Time:</strong> O(n² × 2^n) | <strong>Space:</strong> O(n × 2^n)</p>
         <h3 id="5-steps">5 Steps </h3>
         <ol>
             <li>State: dp[i][j] = max profit up to i</li>
@@ -3998,8 +4645,9 @@ return dummy.next</code></pre>
            ├─ Decisions (Unbounded)? → Knapsack (Coin Change)
            └─ Intervals? → MCM / Burst Balloons
         </pre>
-        <h3 id="must-know-1d">Must-Know 1D </h3>
-        <h4 id="easy-11">Easy </h4>
+        <h3 id="must-know-problems-dp">Must-Know Problems</h3>
+        <h4 id="1d-dp">1D DP</h4>
+        <h5 id="easy-11">Easy</h5>
         <ol>
             <li><a target="_blank" href="https://leetcode.com/problems/climbing-stairs/">Climbing Stairs</a> (70)</li>
             <li><a target="_blank" href="https://leetcode.com/problems/min-cost-climbing-stairs/">Min Cost Climbing
@@ -4150,6 +4798,289 @@ return dummy.next</code></pre>
         </ol>
 
         <hr />
+
+        <h1 id="phase-7-interview-essentials">PHASE 7: INTERVIEW ESSENTIALS 🎯</h1>
+        <h2 id="18-design-questions">18. DESIGN QUESTIONS 🏗️</h2>
+        <p><strong>Difficulty:</strong> <span style="color: red">★★★</span> | <strong>FAANG Staple - Asked in 70%+ of
+                interviews</strong></p>
+        <h3 id="core-concept-design">Core Concept</h3>
+        <p>Implement data structures with specific requirements (O(1) operations, capacity limits). Often combines
+            HashMap with Linked List or Heap.</p>
+        <h3 id="when-to-use-design">When to Use</h3>
+        <ul>
+            <li>✅ Cache implementations (LRU, LFU)</li>
+            <li>✅ Stack/Queue with O(1) special operations</li>
+            <li>✅ Data stream processing</li>
+            <li>✅ Real-time leaderboards</li>
+            <li><strong>Signal Words:</strong> "design", "implement", "O(1)", "recently used"</li>
+        </ul>
+        <h3 id="sub-patterns-design">Sub-Patterns</h3>
+        <h4 id="181-lru-cache">18.1 LRU Cache</h4>
+        <p><strong>Use Case:</strong> O(1) get/put with capacity limit, evict least recently used</p>
+        <pre><code class="language-python">class LRUCache:
+    """
+    LRU CACHE - FAANG STAPLE
+    O(1) get, O(1) put
+
+    TECHNIQUE: Doubly Linked List + HashMap
+    - HashMap: key -> Node (O(1) access)
+    - DLL: Maintain recency order (O(1) move to front)
+    - Tail is least recently used
+    """
+    class Node:
+        def __init__(self, key=0, val=0):
+            self.key = key
+            self.val = val
+            self.prev = None
+            self.next = None
+
+    def __init__(self, capacity: int):
+        self.capacity = capacity
+        self.cache = {}  # key -> Node
+
+        # Dummy head and tail for easy operations
+        self.head = self.Node()
+        self.tail = self.Node()
+        self.head.next = self.tail
+        self.tail.prev = self.head
+
+    def _remove(self, node):
+        """Remove node from DLL"""
+        node.prev.next = node.next
+        node.next.prev = node.prev
+
+    def _add_to_front(self, node):
+        """Add node right after head (most recent)"""
+        node.next = self.head.next
+        node.prev = self.head
+        self.head.next.prev = node
+        self.head.next = node
+
+    def get(self, key: int) -&gt; int:
+        if key not in self.cache:
+            return -1
+
+        node = self.cache[key]
+        # Move to front (most recently used)
+        self._remove(node)
+        self._add_to_front(node)
+        return node.val
+
+    def put(self, key: int, value: int) -&gt; None:
+        if key in self.cache:
+            # Update existing
+            self._remove(self.cache[key])
+
+        node = self.Node(key, value)
+        self._add_to_front(node)
+        self.cache[key] = node
+
+        if len(self.cache) &gt; self.capacity:
+            # Evict LRU (node before tail)
+            lru = self.tail.prev
+            self._remove(lru)
+            del self.cache[lru.key]
+</code></pre>
+        <p><strong>Time:</strong> O(1) for all operations | <strong>Space:</strong> O(capacity)</p>
+        <h4 id="182-min-stack">18.2 Min Stack</h4>
+        <p><strong>Use Case:</strong> Stack with O(1) getMin</p>
+        <pre><code class="language-python">class MinStack:
+    """
+    TECHNIQUE: Store (value, current_min) pairs
+    Or use two stacks: one for values, one for mins
+    """
+    def __init__(self):
+        self.stack = []  # (value, min_at_this_point)
+
+    def push(self, val: int) -&gt; None:
+        current_min = val if not self.stack else min(val, self.stack[-1][1])
+        self.stack.append((val, current_min))
+
+    def pop(self) -&gt; None:
+        self.stack.pop()
+
+    def top(self) -&gt; int:
+        return self.stack[-1][0]
+
+    def getMin(self) -&gt; int:
+        return self.stack[-1][1]
+</code></pre>
+        <p><strong>Time:</strong> O(1) all operations | <strong>Space:</strong> O(n)</p>
+        <h3 id="common-traps-design">Common Traps 🚨</h3>
+        <ul>
+            <li>❌ <strong>HashMap key deletion</strong>: When evicting from cache, remember to delete from HashMap too
+            </li>
+            <li>❌ <strong>Dummy nodes</strong>: For DLL, use dummy head/tail to avoid null checks</li>
+            <li>❌ <strong>Update order</strong>: For LRU, update cache AFTER adding to DLL to avoid partial state</li>
+            <li>❌ <strong>Capacity check timing</strong>: Check capacity AFTER insert, not before</li>
+            <li>❌ <strong>Thread safety</strong>: In interviews, mention mutex/locks for concurrent access</li>
+        </ul>
+        <h3 id="decision-tree-design">Decision Tree</h3>
+        <pre>
+Design Problem Type...
+├─ Cache with eviction?
+│   ├─ Evict least recent → LRU (DLL + HashMap)
+│   └─ Evict least frequent → LFU (HashMap + Freq Lists)
+├─ Get O(1) min/max?
+│   ├─ Stack → Store (val, min) pairs
+│   └─ Queue → Two stacks or deque with monotonic
+├─ Stream processing?
+│   ├─ Moving average → Sliding window queue
+│   └─ Find median → Two heaps
+└─ Social network?
+    └─ Twitter → HashMap + Heap for merge
+        </pre>
+        <h3 id="must-know-problems-design">Must-Know Problems</h3>
+        <h4 id="medium-design">Medium</h4>
+        <ol>
+            <li><a target="_blank" href="https://leetcode.com/problems/lru-cache/">LRU Cache</a> (146) - Classic design
+                ⭐⭐⭐</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/min-stack/">Min Stack</a> (155) ⭐</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/implement-trie-prefix-tree/">Implement Trie</a>
+                (208) ⭐⭐</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/design-twitter/">Design Twitter</a> (355)</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/time-based-key-value-store/">Time Based Key-Value
+                    Store</a> (981)</li>
+        </ol>
+        <h4 id="hard-design">Hard</h4>
+        <ol>
+            <li><a target="_blank" href="https://leetcode.com/problems/lfu-cache/">LFU Cache</a> (460) ⭐⭐</li>
+            <li><a target="_blank" href="https://leetcode.com/problems/all-oone-data-structure/">All O'one Data
+                    Structure</a> (432)</li>
+        </ol>
+        <hr />
+        <h2 id="interview-frequency-table">📊 Interview Frequency by Company</h2>
+        <table style="width:100%; border-collapse: collapse; margin: 20px 0;">
+            <thead>
+                <tr style="background-color: #333; color: white;">
+                    <th style="padding: 12px; border: 1px solid #555;">Pattern</th>
+                    <th style="padding: 12px; border: 1px solid #555;">Google</th>
+                    <th style="padding: 12px; border: 1px solid #555;">Meta</th>
+                    <th style="padding: 12px; border: 1px solid #555;">Amazon</th>
+                    <th style="padding: 12px; border: 1px solid #555;">Apple</th>
+                    <th style="padding: 12px; border: 1px solid #555;">Microsoft</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="padding: 10px; border: 1px solid #444;">Arrays & Hashing</td>
+                    <td style="padding: 10px; border: 1px solid #444; text-align: center;">95%</td>
+                    <td style="padding: 10px; border: 1px solid #444; text-align: center;">90%</td>
+                    <td style="padding: 10px; border: 1px solid #444; text-align: center;">85%</td>
+                    <td style="padding: 10px; border: 1px solid #444; text-align: center;">80%</td>
+                    <td style="padding: 10px; border: 1px solid #444; text-align: center;">85%</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border: 1px solid #444;">Binary Search</td>
+                    <td style="padding: 10px; border: 1px solid #444; text-align: center;">80%</td>
+                    <td style="padding: 10px; border: 1px solid #444; text-align: center;">70%</td>
+                    <td style="padding: 10px; border: 1px solid #444; text-align: center;">65%</td>
+                    <td style="padding: 10px; border: 1px solid #444; text-align: center;">75%</td>
+                    <td style="padding: 10px; border: 1px solid #444; text-align: center;">70%</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border: 1px solid #444;">Sliding Window</td>
+                    <td style="padding: 10px; border: 1px solid #444; text-align: center;">75%</td>
+                    <td style="padding: 10px; border: 1px solid #444; text-align: center;">85%</td>
+                    <td style="padding: 10px; border: 1px solid #444; text-align: center;">70%</td>
+                    <td style="padding: 10px; border: 1px solid #444; text-align: center;">65%</td>
+                    <td style="padding: 10px; border: 1px solid #444; text-align: center;">70%</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border: 1px solid #444;">Trees (BFS/DFS)</td>
+                    <td style="padding: 10px; border: 1px solid #444; text-align: center;">90%</td>
+                    <td style="padding: 10px; border: 1px solid #444; text-align: center;">95%</td>
+                    <td style="padding: 10px; border: 1px solid #444; text-align: center;">80%</td>
+                    <td style="padding: 10px; border: 1px solid #444; text-align: center;">85%</td>
+                    <td style="padding: 10px; border: 1px solid #444; text-align: center;">80%</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border: 1px solid #444;">Graphs</td>
+                    <td style="padding: 10px; border: 1px solid #444; text-align: center;">85%</td>
+                    <td style="padding: 10px; border: 1px solid #444; text-align: center;">80%</td>
+                    <td style="padding: 10px; border: 1px solid #444; text-align: center;">70%</td>
+                    <td style="padding: 10px; border: 1px solid #444; text-align: center;">75%</td>
+                    <td style="padding: 10px; border: 1px solid #444; text-align: center;">75%</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border: 1px solid #444;">Dynamic Programming</td>
+                    <td style="padding: 10px; border: 1px solid #444; text-align: center;">80%</td>
+                    <td style="padding: 10px; border: 1px solid #444; text-align: center;">75%</td>
+                    <td style="padding: 10px; border: 1px solid #444; text-align: center;">65%</td>
+                    <td style="padding: 10px; border: 1px solid #444; text-align: center;">70%</td>
+                    <td style="padding: 10px; border: 1px solid #444; text-align: center;">80%</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border: 1px solid #444;">Backtracking</td>
+                    <td style="padding: 10px; border: 1px solid #444; text-align: center;">60%</td>
+                    <td style="padding: 10px; border: 1px solid #444; text-align: center;">55%</td>
+                    <td style="padding: 10px; border: 1px solid #444; text-align: center;">50%</td>
+                    <td style="padding: 10px; border: 1px solid #444; text-align: center;">55%</td>
+                    <td style="padding: 10px; border: 1px solid #444; text-align: center;">60%</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; border: 1px solid #444;">Design</td>
+                    <td style="padding: 10px; border: 1px solid #444; text-align: center;">70%</td>
+                    <td style="padding: 10px; border: 1px solid #444; text-align: center;">85%</td>
+                    <td style="padding: 10px; border: 1px solid #444; text-align: center;">90%</td>
+                    <td style="padding: 10px; border: 1px solid #444; text-align: center;">75%</td>
+                    <td style="padding: 10px; border: 1px solid #444; text-align: center;">80%</td>
+                </tr>
+            </tbody>
+        </table>
+        <hr />
+        <h2 id="interview-survival-guide">🎯 INTERVIEW SURVIVAL GUIDE</h2>
+        <h3 id="red-flags">Red Flags Interviewers Watch For</h3>
+        <ul>
+            <li>❌ <strong>Jumping to code</strong> without clarifying constraints</li>
+            <li>❌ <strong>Not discussing</strong> time/space complexity</li>
+            <li>❌ <strong>Not testing</strong> with edge cases</li>
+            <li>❌ <strong>Overcomplicating</strong> simple solutions</li>
+            <li>❌ <strong>Silent coding</strong> - not communicating thought process</li>
+            <li>❌ <strong>Getting stuck</strong> without asking for hints</li>
+        </ul>
+        <h3 id="perfect-interview-flow">The Perfect Interview Flow</h3>
+        <pre>
+┌─────────────────────────────────────────────────────────┐
+│ 1. CLARIFY (2 min)                                      │
+│    • Ask about input size and constraints               │
+│    • Clarify edge cases (empty, single element, etc.)   │
+│    • Confirm input/output format                        │
+├─────────────────────────────────────────────────────────┤
+│ 2. APPROACH (5 min)                                     │
+│    • Start with brute force approach                    │
+│    • Identify optimization opportunities                │
+│    • Explain your optimal approach clearly              │
+├─────────────────────────────────────────────────────────┤
+│ 3. COMPLEXITY (1 min)                                   │
+│    • State time complexity BEFORE coding               │
+│    • State space complexity                             │
+│    • Justify why this is acceptable                     │
+├─────────────────────────────────────────────────────────┤
+│ 4. CODE (15-20 min)                                     │
+│    • Write clean, modular code                          │
+│    • Use meaningful variable names                      │
+│    • Explain as you code                                │
+├─────────────────────────────────────────────────────────┤
+│ 5. TEST (5 min)                                         │
+│    • Walk through with a simple example                 │
+│    • Test edge cases explicitly                         │
+│    • Fix bugs calmly if found                           │
+├─────────────────────────────────────────────────────────┤
+│ 6. OPTIMIZE (2 min)                                     │
+│    • Discuss further optimizations if any               │
+│    • Mention trade-offs                                 │
+└─────────────────────────────────────────────────────────┘
+        </pre>
+        <h3 id="must-ask-questions">Must-Ask Questions Before Coding</h3>
+        <ul>
+            <li>📏 <strong>"What's the size of the input?"</strong> - Determines acceptable complexity</li>
+            <li>⚡ <strong>"Are there any time/space constraints?"</strong> - May rule out some approaches</li>
+            <li>🔧 <strong>"Can I modify the input array?"</strong> - Important for in-place algorithms</li>
+            <li>⚠️ <strong>"Should I handle invalid inputs?"</strong> - Shows defensive thinking</li>
+            <li>🔄 <strong>"Is the input sorted or can I sort it?"</strong> - Opens two-pointer/binary search</li>
+            <li>📊 <strong>"Can there be duplicates?"</strong> - Affects edge case handling</li>
+        </ul>
 
     </div>
 </body>
