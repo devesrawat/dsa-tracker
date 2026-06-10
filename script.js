@@ -137,10 +137,22 @@ document.addEventListener("DOMContentLoaded", function () {
                 <button class="dsa-btn" style="background: var(--accent-green); color: white;" onclick="window.saveCurrentNote()">Save Note</button>
             </div>
         </div>
-        <div id="dsa-pattern-modal" class="dsa-modal" style="display:none;">
-            <div class="dsa-modal-header">📖 Pattern Quick Reference</div>
+        <div id="dsa-pattern-modal" class="dsa-modal dsa-pattern-atlas-modal" style="display:none;">
+            <div class="dsa-modal-header">🗺️ Pattern Atlas</div>
+            <p class="dsa-pattern-atlas-sub">Spot the pattern before you code — then practice.</p>
+            <div class="dsa-pattern-atlas-stats" id="dsa-pattern-atlas-stats"></div>
+            <div class="dsa-pattern-atlas-toolbar">
+                <input type="search" id="dsa-pattern-search" class="dsa-pattern-search" placeholder="Search patterns or signal words…" autocomplete="off">
+                <div class="dsa-pattern-atlas-filters" id="dsa-pattern-atlas-filters">
+                    <button type="button" class="dsa-pattern-filter active" data-filter="all">All</button>
+                    <button type="button" class="dsa-pattern-filter" data-filter="next">Next up</button>
+                    <button type="button" class="dsa-pattern-filter" data-filter="active">In progress</button>
+                    <button type="button" class="dsa-pattern-filter" data-filter="todo">Not started</button>
+                    <button type="button" class="dsa-pattern-filter" data-filter="done">Complete</button>
+                </div>
+            </div>
             <div class="dsa-pattern-ref-grid" id="dsa-pattern-ref-list"></div>
-            <button class="dsa-btn" onclick="window.closeModal()" style="margin-top:12px">Close</button>
+            <button class="dsa-btn" onclick="window.closeModal()" style="margin-top:12px;width:100%">Close</button>
         </div>
     `;
     document.body.appendChild(modalBackdrop);
@@ -232,6 +244,10 @@ document.addEventListener("DOMContentLoaded", function () {
     dashboard.className = 'dsa-tracker-dashboard';
     dashboard.innerHTML = `
         <div class="dsa-dashboard-content">
+            <div class="dsa-brand" aria-hidden="true">
+                <span class="dsa-brand-mark">◆</span>
+                <span class="dsa-brand-name">DSA Tracker</span>
+            </div>
             <div class="dsa-progress-container">
                 <span id="dsa-progress-text">Loading...</span>
                 <div class="dsa-progress-bar"><div class="dsa-progress-fill" id="dsa-progress-fill"></div></div>
@@ -246,7 +262,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     <button id="dsa-theme-btn" class="dsa-btn" title="Toggle Theme">🌓</button>
                     <button id="dsa-list-btn" class="dsa-btn" title="View List">📋</button>
                     <button id="dsa-random-btn" class="dsa-btn" title="Random Problem">🎲</button>
-                    <button id="dsa-patterns-btn" class="dsa-btn" title="Pattern Reference" onclick="window.openPatternRef()">📖</button>
+                    <button id="dsa-patterns-btn" class="dsa-btn" title="Pattern Atlas" onclick="window.openPatternRef()">🗺️</button>
                     <div class="dsa-select-wrapper" style="margin:0;">
                         <select class="dsa-btn" onchange="window.handleSettings(this.value)" style="width: auto;">
                             <option value="" disabled selected>⚙️</option>
@@ -265,12 +281,18 @@ document.addEventListener("DOMContentLoaded", function () {
     sessionHub.className = 'dsa-session-hub';
     sessionHub.innerHTML = `
         <div class="dsa-session-card">
-            <div class="dsa-session-location" id="dsa-session-location">Loading...</div>
-            <div class="dsa-session-next" id="dsa-session-next"></div>
-            <div class="dsa-session-actions">
-                <button class="dsa-session-btn dsa-session-btn-primary" id="dsa-continue-btn">▶ Continue</button>
-                <button class="dsa-session-btn" id="dsa-reviews-btn" style="display:none">🕒 Reviews</button>
-                <button class="dsa-session-btn" id="dsa-read-btn">📖 Read Pattern</button>
+            <div class="dsa-session-glow" aria-hidden="true"></div>
+            <div class="dsa-session-inner">
+                <div class="dsa-session-eyebrow">Your next step</div>
+                <div class="dsa-session-location" id="dsa-session-location">Loading...</div>
+                <div class="dsa-session-next" id="dsa-session-next"></div>
+                <div class="dsa-session-actions">
+                    <button class="dsa-session-btn dsa-session-btn-primary" id="dsa-continue-btn">
+                        <span class="dsa-btn-icon">▶</span> Continue
+                    </button>
+                    <button class="dsa-session-btn" id="dsa-reviews-btn" style="display:none">🕒 Reviews</button>
+                    <button class="dsa-session-btn" id="dsa-read-btn">📚 Open Guide</button>
+                </div>
             </div>
         </div>
     `;
@@ -461,6 +483,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             }
                             updateDashboard();
                             updatePhaseChips();
+                            if (document.getElementById('dsa-pattern-modal')?.style.display === 'block') renderPatternAtlas();
                             if (checked) {
                                 const solvedCount = Object.values(state).filter(s => s.done).length;
                                 const lastExport = parseInt(localStorage.getItem(LAST_EXPORT_KEY) || '0', 10);
@@ -657,6 +680,177 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     window.navigateToProblem = navigateToProblem;
+
+    function getPatternPhaseLabel(num) {
+        const phase = LEARNING_PHASES.find(p => p.patterns.includes(num));
+        return phase ? phase.label : '';
+    }
+
+    function extractPatternMeta(h2) {
+        const num = getPatternNumberFromH2(h2);
+        const wrapper = h2.nextElementSibling;
+        const title = (h2.querySelector('.dsa-section-title')?.textContent || h2.textContent).trim();
+        let coreConcept = PATTERN_SUMMARIES[num] || '';
+        let signalWords = [];
+
+        if (wrapper?.classList.contains('dsa-section-content')) {
+            wrapper.querySelectorAll('h3').forEach(h3 => {
+                if (/core concept/i.test(h3.textContent)) {
+                    let el = h3.nextElementSibling;
+                    while (el && el.tagName !== 'H3' && el.tagName !== 'H4') {
+                        if (el.tagName === 'P' && el.textContent.trim()) {
+                            const text = el.textContent.trim();
+                            coreConcept = text.length > 140 ? `${text.slice(0, 137)}…` : text;
+                            break;
+                        }
+                        el = el.nextElementSibling;
+                    }
+                }
+            });
+            wrapper.querySelectorAll('li').forEach(li => {
+                if (/signal words/i.test(li.textContent)) {
+                    const raw = li.textContent.replace(/.*signal words:?\s*/i, '').replace(/["']/g, '');
+                    signalWords = raw.split(',').map(s => s.trim()).filter(Boolean).slice(0, 5);
+                }
+            });
+        }
+
+        const checkboxes = wrapper?.querySelectorAll('.dsa-checkbox') || [];
+        const total = checkboxes.length;
+        const solved = Array.from(checkboxes).filter(cb => cb.checked).length;
+
+        return {
+            num, h2, title, coreConcept, signalWords,
+            solved, total,
+            phase: getPatternPhaseLabel(num),
+            pct: total ? Math.round((solved / total) * 100) : 0,
+        };
+    }
+
+    function buildPatternCatalog() {
+        const catalog = [];
+        document.querySelectorAll('.dsa-section-header').forEach(h2 => {
+            const num = getPatternNumberFromH2(h2);
+            if (num < 1 || num > 18) return;
+            catalog.push(extractPatternMeta(h2));
+        });
+        return catalog.sort((a, b) => a.num - b.num);
+    }
+
+    let patternAtlasFilter = 'all';
+    let patternAtlasQuery = '';
+
+    function getFirstUnsolvedInPattern(patternNum) {
+        return problemListItems.find(p => p.patternNum === patternNum && !getState(p.id).done);
+    }
+
+    function getNextPatternNum() {
+        const { item } = getNextProblem();
+        return item?.patternNum || null;
+    }
+
+    function patternMatchesFilter(entry) {
+        if (patternAtlasFilter === 'all') return true;
+        if (patternAtlasFilter === 'done') return entry.total > 0 && entry.solved === entry.total;
+        if (patternAtlasFilter === 'todo') return entry.solved === 0;
+        if (patternAtlasFilter === 'active') return entry.solved > 0 && entry.solved < entry.total;
+        if (patternAtlasFilter === 'next') return entry.num === getNextPatternNum();
+        return true;
+    }
+
+    function renderPatternAtlas() {
+        const list = document.getElementById('dsa-pattern-ref-list');
+        const stats = document.getElementById('dsa-pattern-atlas-stats');
+        if (!list || !stats) return;
+
+        const catalog = buildPatternCatalog();
+        const started = catalog.filter(p => p.solved > 0).length;
+        const completed = catalog.filter(p => p.total > 0 && p.solved === p.total).length;
+        stats.textContent = `${started}/18 patterns started • ${completed} mastered • ${Object.values(state).filter(s => s.done).length}/${totalProblems} problems`;
+
+        const q = patternAtlasQuery.trim().toLowerCase();
+        const filtered = catalog.filter(entry => {
+            if (!patternMatchesFilter(entry)) return false;
+            if (!q) return true;
+            const hay = [
+                entry.title, entry.coreConcept, entry.phase,
+                ...entry.signalWords, String(entry.num),
+            ].join(' ').toLowerCase();
+            return hay.includes(q);
+        });
+
+        list.innerHTML = '';
+        if (filtered.length === 0) {
+            list.innerHTML = '<div class="dsa-pattern-empty">No patterns match. Try another filter or search.</div>';
+            return;
+        }
+
+        let lastPhase = '';
+        filtered.forEach(entry => {
+            if (entry.phase && entry.phase !== lastPhase) {
+                lastPhase = entry.phase;
+                const phaseEl = document.createElement('div');
+                phaseEl.className = 'dsa-pattern-phase-label';
+                phaseEl.textContent = entry.phase;
+                list.appendChild(phaseEl);
+            }
+
+            const card = document.createElement('article');
+            card.className = 'dsa-pattern-card';
+            if (entry.solved === entry.total && entry.total > 0) card.classList.add('is-done');
+            if (entry.num === getNextPatternNum()) card.classList.add('is-next');
+
+            const tags = entry.signalWords.length
+                ? entry.signalWords.map(w => `<span class="dsa-signal-tag">${w}</span>`).join('')
+                : '<span class="dsa-signal-tag muted">No signal words listed</span>';
+
+            card.innerHTML = `
+                <div class="dsa-pattern-card-top">
+                    <div class="dsa-pattern-card-title">
+                        <span class="dsa-pattern-num">${entry.num}</span>
+                        <span>${entry.title.replace(/^\d+\.\s*/, '')}</span>
+                    </div>
+                    <span class="dsa-pattern-progress-pill">${entry.solved}/${entry.total}</span>
+                </div>
+                <div class="dsa-pattern-progress-track"><div class="dsa-pattern-progress-fill" style="width:${entry.pct}%"></div></div>
+                <p class="dsa-pattern-concept">${entry.coreConcept}</p>
+                <div class="dsa-pattern-spot">
+                    <span class="dsa-pattern-spot-label">Spot it when you see</span>
+                    <div class="dsa-pattern-tags">${tags}</div>
+                </div>
+                <div class="dsa-pattern-card-actions">
+                    <button type="button" class="dsa-pattern-action learn">📚 Learn</button>
+                    <button type="button" class="dsa-pattern-action practice">▶ Practice</button>
+                </div>
+            `;
+
+            card.querySelector('.learn').onclick = (e) => {
+                e.stopPropagation();
+                window.closeModal();
+                setTimeout(() => {
+                    expandPatternSection(entry.h2);
+                    entry.h2.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 250);
+            };
+
+            card.querySelector('.practice').onclick = (e) => {
+                e.stopPropagation();
+                const target = getFirstUnsolvedInPattern(entry.num);
+                window.closeModal();
+                setTimeout(() => {
+                    if (target) {
+                        navigateToProblem(target, { openLink: true, startTimer: true });
+                    } else {
+                        expandPatternSection(entry.h2);
+                        entry.h2.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        window.showToast('Pattern complete! Review or read the guide', '🎉');
+                    }
+                }, 250);
+            };
+
+            list.appendChild(card);
+        });
+    }
 
     function getNextProblem() {
         const now = Date.now();
@@ -925,30 +1119,38 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     window.openPatternRef = () => {
-        const list = document.getElementById('dsa-pattern-ref-list');
-        list.innerHTML = '';
-        document.querySelectorAll('.dsa-section-header').forEach(h2 => {
-            const num = getPatternNumberFromH2(h2);
-            if (num > 18) return;
-            const title = h2.querySelector('.dsa-section-title')?.textContent || h2.textContent.trim();
-            const row = document.createElement('button');
-            row.className = 'dsa-pattern-ref-row';
-            const summary = PATTERN_SUMMARIES[num] || '';
-            row.innerHTML = `<span><strong>${num}.</strong> ${title.replace(/^\d+\.\s*/, '')}<br><small style="color:var(--text-muted)">${summary}</small></span><span>→</span>`;
-            row.onclick = () => {
-                window.closeModal();
-                setTimeout(() => {
-                    expandPatternSection(h2);
-                    h2.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }, 250);
-            };
-            list.appendChild(row);
+        patternAtlasFilter = 'all';
+        patternAtlasQuery = '';
+        const search = document.getElementById('dsa-pattern-search');
+        if (search) search.value = '';
+        document.querySelectorAll('.dsa-pattern-filter').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.filter === 'all');
         });
+        renderPatternAtlas();
         document.getElementById('dsa-srs-modal').style.display = 'none';
         document.getElementById('dsa-notes-modal').style.display = 'none';
         document.getElementById('dsa-pattern-modal').style.display = 'block';
         requestAnimationFrame(() => modalBackdrop.classList.add('active'));
     };
+
+    document.getElementById('dsa-pattern-atlas-filters')?.addEventListener('click', (e) => {
+        const btn = e.target.closest('.dsa-pattern-filter');
+        if (!btn) return;
+        patternAtlasFilter = btn.dataset.filter;
+        document.querySelectorAll('.dsa-pattern-filter').forEach(b => b.classList.toggle('active', b === btn));
+        renderPatternAtlas();
+    });
+
+    document.getElementById('dsa-pattern-search')?.addEventListener('input', (e) => {
+        patternAtlasQuery = e.target.value;
+        if (patternAtlasQuery.trim()) {
+            patternAtlasFilter = 'all';
+            document.querySelectorAll('.dsa-pattern-filter').forEach(b => {
+                b.classList.toggle('active', b.dataset.filter === 'all');
+            });
+        }
+        renderPatternAtlas();
+    });
 
     // Make switching available for random button
     window.switchView = (mode) => {
@@ -962,22 +1164,31 @@ document.addEventListener("DOMContentLoaded", function () {
     document.body.appendChild(tocContainer);
 
     const generateTOC = () => {
-        const headers = document.querySelectorAll('h1, h2');
-        let tocHTML = '<nav class="dsa-toc-nav"><ul>';
+        const introIds = new Set(['learning-progression-philosophy', 'how-to-use-this-guide']);
+        let tocHTML = '<nav class="dsa-toc-nav"><ul class="dsa-toc-intro">';
+        introIds.forEach(id => {
+            const header = document.getElementById(id);
+            if (!header) return;
+            tocHTML += `<li><a href="#${id}" class="dsa-toc-link" data-target="${id}">${header.textContent.replace(/▼/g, '').trim()}</a></li>`;
+        });
+        tocHTML += '</ul><div class="dsa-toc-divider">Patterns</div><ul class="dsa-toc-patterns">';
 
-        headers.forEach((header, index) => {
-            if (header.tagName === 'H1') return; // Skip title in TOC
-            const id = header.id || `section-${index}`;
-            header.id = id;
-
-            // Clean text: remove badges/icons for clean TOC
+        document.querySelectorAll('.dsa-section-header').forEach(header => {
+            const num = getPatternNumberFromH2(header);
+            if (num < 1 || num > 18) return;
+            const id = header.id;
             const clone = header.cloneNode(true);
             clone.querySelectorAll('.dsa-mini-badge, .dsa-header-icon, .dsa-section-progress').forEach(e => e.remove());
             const text = clone.textContent.trim();
-
-            tocHTML += `<li><a href="#${id}" class="dsa-toc-link" data-target="${id}">${text}</a></li>`;
+            tocHTML += `<li><a href="#${id}" class="dsa-toc-link dsa-toc-pattern-link" data-target="${id}" data-pattern="${num}">${text}</a></li>`;
         });
 
+        tocHTML += '</ul><div class="dsa-toc-divider">Interview</div><ul class="dsa-toc-interview">';
+        ['interview-frequency-table', 'interview-survival-guide'].forEach(id => {
+            const header = document.getElementById(id);
+            if (!header) return;
+            tocHTML += `<li><a href="#${id}" class="dsa-toc-link" data-target="${id}">${header.textContent.trim()}</a></li>`;
+        });
         tocHTML += '</ul></nav>';
         tocContainer.innerHTML = tocHTML;
 
